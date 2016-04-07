@@ -21,29 +21,22 @@ function parseTerm(term) {
 }
 
 
+function appendHistory(v) {
+    $(".history").append("<div class='history-item'>"+v+"</div>");
+}
 
 $(document).ready(function(){
-    function appendHistory(v) {
-        $(".history").append("<div class='history-item'>"+v+"</div>");
-    }
-
-    (function getFromStorage() {
-        for(var x in sessionStorage) {
-            appendHistory(sessionStorage.getItem(x));
-        }
-    })();
-
-    function addToStorage(val) {
-        sessionStorage.setItem(sessionStorage.length+1, val);
-    }
+    Storage.getFromStorage().reverse().map(function(n) {
+        appendHistory(n);
+    });
 
   $("#submit").click(function(){
     val = $("#input").val();
-    val = $("#input").val();
     console.log(parseTerm(val));
     appendHistory(val);
-    addToStorage(val);
+    Storage.addToStorage(val);
   });
+
 });
 
 String.prototype.splice = function(start, newSubStr) {
