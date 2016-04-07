@@ -20,12 +20,20 @@ function parseTerm(term) {
     };
 }
 
+function replaceNegative(){
+    for(var i=0; i<val.length; i++){
+        if(val.charAt(i)==='-' && (i===0 || isNaN(val.charAt(i-1)))){
+            val = val.replaceIndex(i,'~');
+        }
+    }
+}
 
 
 $(document).ready(function(){
   $("#submit").click(function(){
     val = $("#input").val();
-    val = $("#input").val();
+    replaceNegative(val);
+    console.log(val);
     console.log(parseTerm(val));
     $(".history").append("<div class='history-item'>"+val+"</div>");
   });
@@ -33,4 +41,8 @@ $(document).ready(function(){
 
 String.prototype.splice = function(start, newSubStr) {
     return this.slice(0, start) + newSubStr + this.slice(start);
+};
+
+String.prototype.replaceIndex=function(index, char){
+    return this.substring(0,index) + char + this.substring(index+char.length);
 };
