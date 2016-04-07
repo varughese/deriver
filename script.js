@@ -23,7 +23,7 @@ function parseTerm(term) {
 function replaceNegative(){
     for(var i=0; i<val.length; i++){
         if(val.charAt(i)==='-' && (i===0 || isNaN(val.charAt(i-1)))){
-            val = val.replaceIndex(i,'~');
+            val = val.replaceAt(i,'~');
         }
     }
 }
@@ -50,6 +50,6 @@ String.prototype.splice = function(start, newSubStr) {
     return this.slice(0, start) + newSubStr + this.slice(start);
 };
 
-String.prototype.replaceIndex=function(index, char){
+String.prototype.replaceAt=function(index, char){
     return this.substring(0,index) + char + this.substring(index+char.length);
 };
