@@ -28,15 +28,22 @@ function replaceNegative(){
     }
 }
 
+function appendHistory(v) {
+    $(".history").append("<div class='history-item'>"+v+"</div>");
+}
 
 $(document).ready(function(){
+    Storage.getFromStorage().reverse().map(function(n) {
+        appendHistory(n);
+    });
+
   $("#submit").click(function(){
     val = $("#input").val();
-    replaceNegative(val);
-    console.log(val);
     console.log(parseTerm(val));
-    $(".history").append("<div class='history-item'>"+val+"</div>");
+    appendHistory(val);
+    Storage.addToStorage(val);
   });
+
 });
 
 String.prototype.splice = function(start, newSubStr) {
