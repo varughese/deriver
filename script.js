@@ -25,7 +25,9 @@ function parseTerm(term) {
 $(document).ready(function(){
   $("#submit").click(function(){
     val = $("#input").val();
+    val = $("#input").val();
     console.log(parseTerm(val));
+    $(".history").append("<div class='history-item'>"+val+"</div>");
   });
 });
 
