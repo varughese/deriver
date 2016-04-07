@@ -29,7 +29,7 @@ function replaceNegative(){
 }
 
 function appendHistory(v) {
-    $(".history").append("<div class='history-item'>"+v+"</div>");
+    $(".history").append("<div class='history-item'>"+v+"<span class='glyphicon glyphicon-remove'></span></div>");
 }
 
 $(document).ready(function(){
@@ -42,6 +42,12 @@ $(document).ready(function(){
     console.log(parseTerm(val));
     appendHistory(val);
     Storage.addToStorage(val);
+  });
+
+  $(".history-item").hover(function(){
+      $(this).find("span.glyphicon-remove").stop().fadeIn();
+  }, function(){
+      $(this).find("span.glyphicon-remove").stop().fadeOut();
   });
 
 });

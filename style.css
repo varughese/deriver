@@ -1,0 +1,8 @@
+span.glyphicon-remove{
+    color: red;
+    display: none;
+}
+
+span.glyphicon-remove:hover{
+    color: darkred;
+}
