@@ -9,5 +9,5 @@ Storage.getFromStorage = function() {
 };
 
 Storage.addToStorage = function(val) {
-    sessionStorage.setItem(sessionStorage.length+1, val);
+    sessionStorage.setItem(Date.now(), val);
 };
