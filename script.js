@@ -22,7 +22,7 @@ function parseTerm(term) {
 
 function replaceNegative(){
     for(var i=0; i<val.length; i++){
-        if(val.charAt(i)==='-' && (i===0 || isNaN(val.charAt(i-1)))){
+        if(val.charAt(i)==='-' && (i===0 || "+*^/-".indexOf(val.charAt(i-1))>-1)){
             val = val.replaceIndex(i,'~');
         }
     }
