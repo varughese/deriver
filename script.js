@@ -23,11 +23,26 @@ function parseTerm(term) {
 
 
 $(document).ready(function(){
+    function appendHistory(v) {
+        $(".history").append("<div class='history-item'>"+v+"</div>");
+    }
+
+    (function getFromStorage() {
+        for(var x in sessionStorage) {
+            appendHistory(sessionStorage.getItem(x));
+        }
+    })();
+
+    function addToStorage(val) {
+        sessionStorage.setItem(sessionStorage.length+1, val);
+    }
+
   $("#submit").click(function(){
     val = $("#input").val();
     val = $("#input").val();
     console.log(parseTerm(val));
-    $(".history").append("<div class='history-item'>"+val+"</div>");
+    appendHistory(val);
+    addToStorage(val);
   });
 });
 
