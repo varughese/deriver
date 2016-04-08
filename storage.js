@@ -1,6 +1,6 @@
 var Storage = {};
 
-Storage.getFromStorage = function() {
+Storage.get = function() {
     var arr = [];
     for(var x in sessionStorage) {
         arr.push(sessionStorage.getItem(x));
@@ -8,14 +8,16 @@ Storage.getFromStorage = function() {
     return arr;
 };
 
-Storage.addToStorage = function(val) {
-    sessionStorage.setItem(Date.now(), val);
+Storage.add = function(val) {
+    var timestamp = Date.now();
+    sessionStorage.setItem(timestamp, val);
+    return timestamp;
 };
 
 Storage.key = function(num){
     sessionStorage.key(num);
 };
 
-Storage.removeItem = function(key){
-    sessionStorage.removeItem(key);
+Storage.remove = function(key){
+    sessionStorage.remove(key);
 };
