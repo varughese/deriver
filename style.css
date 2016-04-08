@@ -10,3 +10,7 @@ span.glyphicon-remove:hover{
 .history-item:hover{
     cursor: pointer;
 }
+
+.history-item:hover > .glyphicon-remove {
+    display: block;
+}

@@ -28,27 +28,9 @@ function replaceNegative(){
     }
 }
 
-function RefreshHoverEventListener(){
-    $(".history > .history-item").off();
-
-    $(".history > .history-item").on("mouseover", function(){
-        console.log("hovered");
-        $(this).find("span.glyphicon-remove").stop().fadeIn();
-    });
-
-    $(".history > .history-item").on("mouseleave", function(){
-        console.log("unhovered");
-        $(this).find("span.glyphicon-remove").stop().fadeOut();
-    });
-
-    $("span.glyphicon-remove").click(function(){
-        $(this).closest('.history-item').remove();
-    });
-}
 
 function appendHistory(v) {
     $(".history").append("<div class='history-item'>"+v+"<span class='glyphicon glyphicon-remove'></span></div>");
-    RefreshHoverEventListener();
 }
 
 $(document).ready(function(){
@@ -62,7 +44,7 @@ $(document).ready(function(){
     appendHistory(val);
     Storage.addToStorage(val);
   });
-  
+
 });
 
 String.prototype.splice = function(start, newSubStr) {
