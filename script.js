@@ -28,7 +28,6 @@ function replaceNegative(){
     }
 }
 
-
 function appendHistory(v) {
     $(".history").append("<div class='history-item'>"+v+"<span class='glyphicon glyphicon-remove'></span></div>");
 }
