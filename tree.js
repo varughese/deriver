@@ -1,7 +1,5 @@
 function Tree(val) {
     this.val = val;
-    this.$leftLevels = 1;
-    this.$rightLevels = 1;
     this.left = false;
     this.right = false;
 }
@@ -28,7 +26,6 @@ Tree.prototype.set = function(dir, val) {
     if(!val) throw "Value must be defined";
 
     dir = this.getDir(dir);
-    this['$' + dir + 'Levels']++;
     this[dir] = new Tree(val);
 };
 
@@ -38,12 +35,15 @@ Tree.prototype.add = function(dir, val) {
     dir = this.getDir(dir);
 
     var current = this;
-    for (var i = 1; i < this['$' + dir + 'Levels']; i++) {
+
+    while(current[dir]) {
         current = current[dir];
-        current['$' + dir + 'Levels']++;
     }
-    this['$' + dir + 'Levels']++;
-    current[dir] = new Tree(val);
+    if(val instanceof Tree) {
+        current[dir] = val;
+    } else {
+        current[dir] = new Tree(val);
+    }
 };
 
 Tree.prototype.r = function (v) {
@@ -66,6 +66,12 @@ Tree.prototype.toString = function(num) {
     if(!this.left) left = '';
     if(!this.right) right = '';
     return  '[' + this.val  + ']' + '\n' + left + right;
+};
+
+Tree.prototype.toFlatString = function() {
+    var left = this.left ? this.left.toFlatString() : '';
+    var right = this.right ? this.right.toFlatString() : '';
+    return  left + " " + this.val + " " + right;
 };
 
 
