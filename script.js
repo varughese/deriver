@@ -58,6 +58,7 @@ function parseInput(val) {
     if(parens[0] && parens[0][0]===0 && parens[0][1]===val.length-1) {
         org = val = val.substring(1, val.length-1);
         parens.shift();
+        parens = parseParens(val);
     }
 
     for(var j in parens) {
