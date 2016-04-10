@@ -28,6 +28,12 @@ function replaceNegative(){
     }
 }
 
+function parseParens(val) {
+    var lefts = val.findChar('(');
+    var rights = val.findChar(')');
+}
+
+
 function appendHistory(v) {
     // you gonna have to change this function so you can pass in ID that identifies it, and add that ID as an attribute to this element
     $(".history").append("<div class='history-item'><span class='glyphicon glyphicon-remove'></span>"+v+"</div>");
@@ -60,4 +66,12 @@ String.prototype.splice = function(start, newSubStr) {
 
 String.prototype.replaceAt=function(index, char){
     return this.substring(0,index) + char + this.substring(index+char.length);
+};
+
+String.prototype.findChar = function(token) {
+    var indices = [];
+    for(var i=0; i<this.length; i++)
+     if(this[i] === token) indices.push(i);
+
+    return indices;
 };
