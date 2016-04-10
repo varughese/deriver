@@ -46,23 +46,34 @@ function parseParens(val) {
     return list.reverse();
 }
 
+function cleanInput(val) {
+    var missingMultiply = val.findChar('(').concat(val.findChar('x')).sort(function(a, b) {
+        return a - b;
+    });
+    for(var p=missingMultiply.length-1; p>=0; p--) {
+        var pos = missingMultiply[p],
+            token = val[pos-1];
+        if(!isNaN(token) || token === ')') {
+            val = val.splice(pos, '*');
+        }
+    }
+    return val;
+}
+
+var OPS = {
+    '+': 1,
+    '-': 2,
+    '*': 3,
+    '/': 4,
+    '^': 5
+};
 
 function parseInput(val) {
     if(val[0] === '(' && val[val.length-1] === ')') val = val.substring(1, val.length-1);
 
     var parens = parseParens(val),
-        parenIndex = [],
         org = val;
-    for(var i in parens) {
-        parenIndex.push(val.substring(parens[i][0]+1, parens[i][1]));
-    }
-    var OPS = {
-        '+': 1,
-        '-': 2,
-        '*': 3,
-        '/': 4,
-        '^': 5
-    };
+
     for(var j in parens) {
         var l = parens[j][0],
             r = parens[j][1];
