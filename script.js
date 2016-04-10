@@ -29,8 +29,21 @@ function replaceNegative(){
 }
 
 function parseParens(val) {
-    var lefts = val.findChar('(');
-    var rights = val.findChar(')');
+    var lefts = val.findChar('('),
+        rights = val.findChar(')'),
+        list = [];
+    if(lefts.length !== rights.length) throw "Mismatched Parentheses!";
+
+    // dope algorithm
+    for(var i=lefts.length-1; i>=0; i--) {
+        var k = i;
+        while(k>=0 && lefts[i] < rights[k]) {
+            k--;
+        }
+        list.push([lefts.pop(), rights.splice(k+1,1)[0]]);
+    }
+
+    return list.reverse();
 }
 
 
@@ -74,4 +87,8 @@ String.prototype.findChar = function(token) {
      if(this[i] === token) indices.push(i);
 
     return indices;
+};
+
+Number.prototype.isBetween = function(a, b) {
+    return this<=b && this>=a;
 };
