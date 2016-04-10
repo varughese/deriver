@@ -47,6 +47,51 @@ function parseParens(val) {
 }
 
 
+function parseInput(val) {
+    if(val[0] === '(' && val[val.length-1] === ')') val = val.substring(1, val.length-1);
+
+    var parens = parseParens(val),
+        parenIndex = [],
+        org = val;
+    for(var i in parens) {
+        parenIndex.push(val.substring(parens[i][0]+1, parens[i][1]));
+    }
+    var OPS = {
+        '+': 1,
+        '-': 2,
+        '*': 3,
+        '^': 4
+    };
+    for(var j in parens) {
+        var l = parens[j][0],
+            r = parens[j][1];
+
+        val = val.substring(0, l) + Array(r-l+2).join('_') + val.substring(r+1);
+    }
+    var foundOps = {};
+    for(var c=val.length; c>=0; c--) {
+        for(var op in OPS) {
+            if(val[c] === op) {
+                foundOps[op] = c;
+            }
+        }
+    }
+
+    var pos;
+    for(var o in OPS) {
+        if(foundOps[o]) {
+            pos = foundOps[o];
+            token = val[pos];
+            break;
+        }
+    }
+    if(!pos) { return new Tree(val); }
+    var tree = new Tree(token);
+    tree.left = parseInput(org.substring(0, pos));
+    tree.right = parseInput(org.substring(pos+1));
+    return tree;
+}
+
 function appendHistory(v) {
     // you gonna have to change this function so you can pass in ID that identifies it, and add that ID as an attribute to this element
     $(".history").append("<div class='history-item'><span class='glyphicon glyphicon-remove'></span>"+v+"</div>");
@@ -92,3 +137,5 @@ String.prototype.findChar = function(token) {
 Number.prototype.isBetween = function(a, b) {
     return this<=b && this>=a;
 };
+
+console.log(parseInput("2*(x^4+(6/x))+(3/x)"));
