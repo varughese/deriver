@@ -65,10 +65,13 @@ var OPS = {
     '-': 2,
     '*': 3,
     '/': 4,
-    '^': 5
+    '^': 5,
+    'sin': 6
 };
 
 function parseInput(val) {
+    if(val === "") return false;
+
     var parens = parseParens(val),
         org = val;
 
@@ -83,27 +86,28 @@ function parseInput(val) {
 
         val = val.substring(0, l) + Array(r-l+2).join('_') + val.substring(r+1);
     }
+
     var foundOps = {};
-    for(var c=val.length; c>=0; c--) {
+    for(var c=val.length-1; c>=0; c--) {
         for(var op in OPS) {
-            if(val[c] === op) {
+            if(val.substring(c, c+op.length) === op) {
                 foundOps[op] = c;
             }
         }
     }
 
-    var pos;
+    var pos, token;
     for(var o in OPS) {
-        if(foundOps[o]) {
+        if(foundOps[o]>=0) {
             pos = foundOps[o];
-            token = val[pos];
+            token = val.substring(pos, pos+o.length);
             break;
         }
     }
-    if(!pos) { return new Tree(val); }
+    if(pos === undefined) { return new Tree(val); }
     var tree = new Tree(token);
     tree.left = parseInput(org.substring(0, pos));
-    tree.right = parseInput(org.substring(pos+1));
+    tree.right = parseInput(org.substring(pos+token.length));
     return tree;
 }
 
