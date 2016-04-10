@@ -60,7 +60,8 @@ function parseInput(val) {
         '+': 1,
         '-': 2,
         '*': 3,
-        '^': 4
+        '/': 4,
+        '^': 5
     };
     for(var j in parens) {
         var l = parens[j][0],
@@ -104,7 +105,7 @@ $(document).ready(function(){
 
   $("#submit").click(function(){
     val = $("#input").val();
-    console.log(parseTerm(val));
+    console.log(parseInput(val)+"");
     appendHistory(val);
     // storage.add returns a timestamp, which is like the 'ID' of that particular item
     Storage.add(val);
@@ -137,5 +138,3 @@ String.prototype.findChar = function(token) {
 Number.prototype.isBetween = function(a, b) {
     return this<=b && this>=a;
 };
-
-console.log(parseInput("2*(x^4+(6/x))+(3/x)"));

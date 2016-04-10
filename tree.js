@@ -66,14 +66,3 @@ Tree.prototype.toFlatString = function() {
     var right = this.right ? this.right.toFlatString() : '';
     return  left + " " + this.val + " " + right;
 };
-
-
-
-var x = new Tree('A');
-x.add(1, 'B');
-x.add(-1, 'LA');
-x.get(-1, 2).l('2x');
-x.get(-1, 2).r('34');
-x.add(1, 'C');
-x.add(1, 'D');
-console.log(x);
