@@ -69,10 +69,13 @@ var OPS = {
 };
 
 function parseInput(val) {
-    if(val[0] === '(' && val[val.length-1] === ')') val = val.substring(1, val.length-1);
-
     var parens = parseParens(val),
         org = val;
+
+    if(parens[0] && parens[0][0]===0 && parens[0][1]===val.length-1) {
+        org = val = val.substring(1, val.length-1);
+        parens.shift();
+    }
 
     for(var j in parens) {
         var l = parens[j][0],
