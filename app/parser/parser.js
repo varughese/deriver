@@ -31,7 +31,7 @@ function cleanInput(val) {
     for(var p=missingMultiply.length-1; p>=0; p--) {
         var pos = missingMultiply[p],
             token = val[pos-1];
-        if(!isNaN(token) || token === ')') {
+        if(!isNaN(token) || ')x'.indexOf(token) > -1) {
             val = val.splice(pos, '*');
         }
     }

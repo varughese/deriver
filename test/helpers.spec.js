@@ -21,7 +21,7 @@ describe("Helpers::", function() {
         it("Number then Parentheses", function() {
             expect(cleanInput("3(4)")).toBe("3*(4)");
             expect(cleanInput("3(4+x)")).toBe("3*(4+x)");
-            // expect(cleanInput("x(9+x)")).toBe("x*(9+x)");
+            expect(cleanInput("x(9+x)")).toBe("x*(9+x)");
         });
 
         it("Parentheses then Parentheses", function() {
