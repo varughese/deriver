@@ -1,5 +1,5 @@
-describe('Parser::', function() {
-    describe('Basic:', function() {
+describe("Parser::", function() {
+    describe("Basic:", function() {
 
         it("Basic Addition", function() {
             var parsed = parseInput("2+4");
@@ -17,7 +17,7 @@ describe('Parser::', function() {
             expect(parsed).toEqual(tree);
         });
 
-        describe("PEMDAS:", function() {
+        describe("EMDAS:", function() {
 
             it("Add/Multiply", function() {
                 var parsed = parseInput("2+4*x");
@@ -55,5 +55,30 @@ describe('Parser::', function() {
                 expect(parsed).toEqual(tree);
             });
         });
+    });
+
+    describe("Parentheses:", function() {
+
+        it("Basic Parentheses", function() {
+            var parsed = parseInput("(2-4)*(9+3)");
+            var tree = new Tree("*");
+            var lSubTree = new Tree("-");
+            lSubTree.l("2"); lSubTree.r("4");
+            tree.l(lSubTree);
+            var rSubTree = new Tree("+");
+            rSubTree.l("9");
+            rSubTree.r("3");
+            tree.r(rSubTree);
+        });
+
+        it("Nested Parentheses", function() {
+            var parsed = parseInput("(3/(4-x)+3)/(3/4)");
+            var left = parseInput("3/(4-x)+3");
+            var right = parseInput("3/4");
+            var tree = new Tree("/");
+            tree.l(left); tree.r(right);
+            expect(parsed).toEqual(tree);
+        });
+
     });
 });
