@@ -52,6 +52,18 @@ Tree.prototype.last = function(dir) {
     return this.get(dir, this['$' + dir + 'Levels']).val;
 };
 
+Tree.prototype.equals = function(tree) {
+    if(!tree || this.val !== tree.val) return false;
+    var left, right; left = right = true;
+    if(this.left && tree.left) {
+        left = tree.left.equals(this.left);
+    }
+    if(this.right && tree.right) {
+        right = tree.right.equals(this.right);
+    }
+    return left && right;
+};
+
 Tree.prototype.toString = function(num) {
     if(!num) num = 2;
     var left = Array(num+1).join(".") + this.left.toString(num+2),
@@ -66,3 +78,11 @@ Tree.prototype.toFlatString = function() {
     var right = this.right ? this.right.toFlatString() : '';
     return  left + " " + this.val + " " + right;
 };
+
+var tree = new Tree("^");
+tree.l("*");
+tree.left.l("x");tree.left.r("4");
+var tree2 = new Tree("^");
+tree2.l("*");
+tree2.left.l("x");tree2.left.r("4");
+tree.equals(tree2); // true
