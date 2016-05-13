@@ -1,4 +1,4 @@
-# deriver
+![alt text](http://i.imgur.com/Vn9S8AI.png?1 "Deriver")
 
 A project that attempts to implement the idea of a derivitave (Calculus) in javascript. User input is parsed and the derivitave is given.
 
