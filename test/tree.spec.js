@@ -47,6 +47,22 @@ describe("Tree::", function() {
 
             expect(t.equals(pattern)).toBe(true);
         });
+
+        it("Different Length Trees", function() {
+            var t = new Tree("^");
+            var subTree = new Tree("*");
+            subTree.l("2");
+            subTree.r("x");
+            t.l(subTree);
+            t.r("2");
+
+            var pattern = new Tree("^");
+            pattern.l(TreePattern.ANY);
+            pattern.r("2");
+
+            expect(t.equals(pattern)).toBe(true);
+            expect(pattern.equals(t)).toBe(true);
+        });
     });
 
 });

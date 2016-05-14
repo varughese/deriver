@@ -1,10 +1,5 @@
 var TreePattern = {};
 
-var rules = {
-    ANY: "$$$",
-    NUM: "###",
-    OP: "&&&"
-};
 
 function treePatternRule(rule) {
     this.rule = rule;
@@ -15,6 +10,11 @@ treePatternRule.prototype.toString = function() {
     return this.rule;
 };
 
+var rules = {
+    ANY: "$$$",
+    NUM: "###",
+    OP: "&&&"
+};
 for(var p in rules) {
     TreePattern[p] = new treePatternRule(rules[p]);
 }
