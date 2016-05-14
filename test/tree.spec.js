@@ -43,7 +43,7 @@ describe("Tree::", function() {
             t.r("2");
             var pattern = new Tree("^");
             pattern.l("x");
-            pattern.r(TreeRegex.NUM);
+            pattern.r(TreePattern.NUM);
 
             expect(t.equals(pattern)).toBe(true);
         });

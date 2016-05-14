@@ -48,7 +48,7 @@ Tree.prototype.l = function(v) {
 };
 
 Tree.prototype.equals = function(tree) {
-    if(!tree || !TreeRegex.eq(this.val, tree.val)) return false;
+    if(!tree || !TreePattern.eq(this.val, tree.val)) return false;
     var left, right; left = right = true;
     if(this.left && tree.left) {
         left = tree.left.equals(this.left);

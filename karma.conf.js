@@ -17,7 +17,7 @@ module.exports = function(config) {
     files: [
         'bower_components/jquery/dist/jquery.min.js',
         'app/assets/js/strings.js',
-        'app/assets/js/tree/treeregex.js',
+        'app/assets/js/tree/treepattern.js',
         'app/assets/js/tree/tree.js',
         'app/parser/parser.js',
         'test/*.spec.js'
