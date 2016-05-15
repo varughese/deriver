@@ -74,6 +74,15 @@ Tree.prototype.clone = function() {
     return clone;
 };
 
+Tree.prototype.contains = function(target) {
+    var left, right; left = right = false;
+    if(TreePattern.eq(this.val, target)) return true;
+    if(this.left) left = this.left.contains(target);
+    if(this.right) right = this.right.contains(target);
+
+    return left || right;
+};
+
 Tree.prototype.toString = function(num) {
     if(!num) num = 2;
     var left = Array(num+1).join(".") + this.left.toString(num+2),
@@ -88,6 +97,3 @@ Tree.prototype.toFlatString = function() {
     var right = this.right ? this.right.toFlatString() : '';
     return  left + " " + this.val + " " + right;
 };
-
-
-var tree = new Tree("^"); tree.l("x"); tree.r(4);

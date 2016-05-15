@@ -1,6 +1,10 @@
 function derive(t) {
-    // TODO: Figure out how to determine which rule to use
-
+    // TODO: Figure out better way to determine which rule to use
+    if(t.indexOf("^") > -1) {
+        return powerRule(t);
+    } else {
+        return constantRule(t);
+    }
 
 }
 
@@ -46,7 +50,7 @@ function constantRule(t) {
 /*
     basic: x^5
     coefficent: 3*x^5
-    complex: 3*(x^4)^5
+    complex: 3*(10*x)^5
 */
 function powerRule(t) {
     var tree = t.clone();

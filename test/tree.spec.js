@@ -99,4 +99,35 @@ describe("Tree::", function() {
         });
     });
 
+    describe("Searching:", function() {
+        var tree = new Tree("^"),
+            subTree = new Tree("*"),
+            subsubTree = new Tree("+");
+
+        subsubTree.l("x"); subsubTree.r(5);
+        subTree.l(4); subTree.r(subsubTree);
+        tree.l(3);
+        tree.r(subTree);
+        /*
+        [^]
+        ..[3]
+        ..[*]
+        ....[4]
+        ....[+]
+        ......[x]
+        ......[5]
+        */
+        it("Contains method", function() {
+
+
+            expect(tree.contains(3)).toBeTruthy();
+            expect(tree.contains("x")).toBeTruthy();
+            expect(tree.contains(TreePattern.ANY)).toBeTruthy();
+            expect(tree.contains(TreePattern.NUM)).toBeTruthy();
+            expect(tree.contains(9)).toBeFalsy();
+            expect(tree.contains("/")).toBeFalsy();
+        });
+
+    });
+
 });
