@@ -5,6 +5,7 @@
   "main": "script.js",
   "dependencies": {},
   "devDependencies": {
+    "bower": "^1.7.9",
     "jasmine-core": "^2.4.1",
     "karma": "^0.13.22",
     "karma-chrome-launcher": "^0.2.3",
@@ -14,6 +15,7 @@
     "phantomjs-prebuilt": "^2.1.7"
   },
   "scripts": {
+    "build": "npm install && bower install && npm run open",
     "test": "karma start",
     "open": "start chrome ./app/index.html"
   },
