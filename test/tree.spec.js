@@ -1,5 +1,5 @@
 describe("Tree::", function() {
-    describe("Tree Creation:", function() {
+    describe("Creation:", function() {
 
         it("Simple", function() {
             var t = new Tree("A");
@@ -12,7 +12,20 @@ describe("Tree::", function() {
 
     });
 
-    describe("Tree Equality:", function() {
+    describe("Cloning", function() {
+        it("1 Layer Deep Clone", function() {
+            var tree = new Tree("^");
+            tree.l("x");
+            tree.r(4);
+
+            var clone = tree.clone();
+            clone.left.val = "y";
+
+            expect(tree.left.val).toBe("x");
+        });
+    });
+
+    describe("Equality:", function() {
 
         it("Simple", function() {
             var t = new Tree("A");

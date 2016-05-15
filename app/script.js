@@ -1,4 +1,4 @@
-var val;
+var val, powerruled;
 
 function appendHistory(v) {
     // you gonna have to change this function so you can pass in ID that identifies it, and add that ID as an attribute to this element
@@ -12,10 +12,14 @@ $(document).ready(function(){
 
   $("#submit").click(function(){
     val = $("#input").val();
-    console.log(parseInput(val)+"");
     appendHistory(val);
-    // storage.add returns a timestamp, which is like the 'ID' of that particular item
     Storage.add(val);
+
+    val = parseInput(cleanInput(val));
+    console.log(val+"");
+    powerruled = powerRule(val);
+    console.log(powerruled+"");
+    // storage.add returns a timestamp, which is like the 'ID' of that particular item
   });
 
   $(".history").on("click", ".history-item>.glyphicon-remove", function(event) {

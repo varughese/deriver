@@ -1,5 +1,5 @@
 function Tree(val) {
-    this.val = val;
+    this.val = !isNaN(val) ? Number(val) : val;
     this.left = false;
     this.right = false;
 }
@@ -59,6 +59,25 @@ Tree.prototype.equals = function(tree) {
     return left && right;
 };
 
+Tree.prototype.clone = function() {
+    var clone = new Tree(this.val),
+        left = this.left,
+        right = this.right;
+
+    while(left || right) {
+        if(left) {
+            clone.l(left.val);
+            left = left.left;
+        }
+        if(right) {
+            clone.r(right.val);
+            right = right.right;
+        }
+    }
+
+    return clone;
+};
+
 Tree.prototype.toString = function(num) {
     if(!num) num = 2;
     var left = Array(num+1).join(".") + this.left.toString(num+2),
@@ -73,3 +92,6 @@ Tree.prototype.toFlatString = function() {
     var right = this.right ? this.right.toFlatString() : '';
     return  left + " " + this.val + " " + right;
 };
+
+
+var tree = new Tree("^"); tree.l("x"); tree.r(4);

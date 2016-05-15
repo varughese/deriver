@@ -1,7 +1,7 @@
 {
   "name": "deriver",
   "version": "1.0.0",
-  "description": "A project that attempts to implement the idea of a derivitave (Calculus) in javascript. User input is parsed and the derivitave is given.",
+  "description": "A project that attempts to implement the idea of a Calculus derivitave in javascript, by parsing user input into trees",
   "main": "script.js",
   "dependencies": {},
   "devDependencies": {
@@ -14,7 +14,7 @@
     "phantomjs-prebuilt": "^2.1.7"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "karma start"
   },
   "repository": {
     "type": "git",
