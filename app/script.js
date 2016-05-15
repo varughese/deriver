@@ -16,9 +16,9 @@ $(document).ready(function(){
     Storage.add(val);
 
     val = parseInput(cleanInput(val));
-    console.log(val+"");
-    powerruled = powerRule(val);
-    console.log(powerruled+"");
+    console.log("Converted to Tree\n" +val);
+    derived = derive(val);
+    console.log("Derived\n" + derived);
     // storage.add returns a timestamp, which is like the 'ID' of that particular item
   });
 
