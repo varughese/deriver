@@ -25,6 +25,7 @@ function parseParens(val) {
 }
 
 function cleanInput(val) {
+    val = val.removeSpaces();
     var missingMultiply = val.findChar('(').concat(val.findChar('x')).sort(function(a, b) {
         return a - b;
     });

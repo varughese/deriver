@@ -14,6 +14,10 @@ String.prototype.findChar = function(token) {
     return indices;
 };
 
+String.prototype.removeSpaces = function() {
+    return this.trim().replace(/\s+/g, ''); 
+};
+
 Number.prototype.isBetween = function(a, b) {
     return this<=b && this>=a;
 };
