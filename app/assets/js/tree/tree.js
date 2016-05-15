@@ -64,15 +64,11 @@ Tree.prototype.clone = function() {
         left = this.left,
         right = this.right;
 
-    while(left || right) {
-        if(left) {
-            clone.l(left.val);
-            left = left.left;
-        }
-        if(right) {
-            clone.r(right.val);
-            right = right.right;
-        }
+    if(left) {
+        clone.left = left.clone();
+    }
+    if(right) {
+        clone.right = right.clone();
     }
 
     return clone;

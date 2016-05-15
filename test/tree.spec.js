@@ -13,15 +13,36 @@ describe("Tree::", function() {
     });
 
     describe("Cloning", function() {
-        it("1 Layer Deep Clone", function() {
-            var tree = new Tree("^");
-            tree.l("x");
-            tree.r(4);
+        var tree = new Tree("^");
+        tree.l("x");
+        tree.r(4);
 
+        it("1 Layer Deep Clone", function() {
             var clone = tree.clone();
             clone.left.val = "y";
 
             expect(tree.left.val).toBe("x");
+        });
+
+        it("2 Layer Deep Clone", function() {
+            var newTree = new Tree("*");
+            newTree.l(3);
+            newTree.r(tree);
+
+            var clone = newTree.clone();
+            expect(newTree.toString()).toEqual(clone.toString());
+        });
+
+        it("3 Layer Deep Clone", function() {
+            var newTree = new Tree("+"),
+                subTree = new Tree("*");
+
+            subTree.l(4); subTree.r("x");
+            newTree.r(tree);
+
+            var clone = newTree.clone();
+
+            expect(clone.toString()).toEqual(newTree.toString());
         });
     });
 
