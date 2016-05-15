@@ -1,6 +1,6 @@
 function derive(t) {
     // TODO: Figure out better way to determine which rule to use
-    if(t.indexOf("^") > -1) {
+    if(t.contains("^")) {
         return powerRule(t);
     } else {
         return constantRule(t);
@@ -44,7 +44,7 @@ function constantRule(t) {
         i++;
     }
 
-    return res;
+    return new Tree(res);
 }
 
 /*
