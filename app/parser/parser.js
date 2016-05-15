@@ -45,7 +45,12 @@ var OPS = {
     '*': 3,
     '/': 4,
     '^': 5,
-    'sin': 6
+    'sin': 6,
+    'cos': 7,
+    'tan': 8,
+    'csc': 9,
+    'sec': 10,
+    'cot': 11
 };
 
 function parseInput(val) {
