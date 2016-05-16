@@ -13,11 +13,25 @@ treePatternRule.prototype.toString = function() {
 var rules = {
     ANY: "$$$",
     NUM: "###",
-    OP: "&&&"
+    OP: "&&&",
+    TRIG: ">>>"
 };
 for(var p in rules) {
     TreePattern[p] = new treePatternRule(rules[p]);
 }
+
+var _defaults = {
+    "###": 1,
+    "&&&": '+',
+    ">>>": 'sin'
+};
+
+TreePattern.fns = {
+    "###": function(val) { return !isNaN(val); },
+    "&&&": function(val) { return val && "+-/*^".indexOf(val) > -1; },
+    ">>>": function(val) { return val && "sin|cos|tan|csc|sec|cot".indexOf(val) > -1 ; }
+};
+
 
 TreePattern.eq = function(val, pattern) {
     if(val instanceof treePatternRule) {
@@ -31,12 +45,15 @@ TreePattern.eq = function(val, pattern) {
 
     if(val instanceof treePatternRule) {
         // if they are both treePatternRule, then convert val to simple value
-        if(val == TreePattern.NUM) val = 1;
-        if(val == TreePattern.OP) val = "+";
+        if(_defaults[val])
+            val = _defaults[val];
+        else
+            console.log("No " + val);
     }
 
-    if(pattern == TreePattern.NUM) {
-        return !isNaN(val);
+
+    if(this.fns[pattern.rule]) {
+        return this.fns[pattern.rule](val);
     }
 
     return val == pattern;
