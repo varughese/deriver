@@ -1,11 +1,10 @@
 function derive(t) {
-    // TODO: Figure out better way to determine which rule to use
-
+    
     if(TreePattern.contains(t.val, '+-')) {
         var res = new Tree(t.val);
         res.l(derive(t.left));
         res.r(derive(t.right));
-        return r;
+        return res;
     }
 
     if(t.contains("^")) {

@@ -55,7 +55,8 @@ var OPS = {
 
 function parseInput(val) {
     if(val === "") return false;
-
+    val = cleanInput(val);
+    
     var parens = parseParens(val),
         org = val;
 
