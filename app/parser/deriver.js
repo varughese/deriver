@@ -7,7 +7,13 @@ function derive(t) {
         return res;
     }
 
-    if(t.contains("^")) {
+    //TODO: if(t.contains('*')) console.log('TODO: Product Rule or Constant Rule ');
+
+    if(t.contains(TreePattern.TRIG)) {
+        return trigRules(t);
+    }
+
+    if(t.contains(_schemas.powerRule.basic)) {
         return powerRule(t);
     } else {
         return constantRule(t);

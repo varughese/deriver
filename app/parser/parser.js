@@ -1,9 +1,10 @@
-function replaceNegative(){
+function replaceNegatives(val){
     for(var i=0; i<val.length; i++){
         if(val.charAt(i)==='-' && (i===0 || "+*^/-".indexOf(val.charAt(i-1))>-1)){
-            val = val.replaceIndex(i,'~');
+            val = val.replaceAt(i,'~');
         }
     }
+    return val;
 }
 
 function parseParens(val) {
@@ -25,7 +26,7 @@ function parseParens(val) {
 }
 
 function cleanInput(val) {
-    val = val.removeSpaces();
+    val = replaceNegatives(val.removeSpaces());
     var missingMultiply = val.findChar('(').concat(val.findChar('x')).sort(function(a, b) {
         return a - b;
     });
@@ -56,7 +57,7 @@ var OPS = {
 function parseInput(val) {
     if(val === "") return false;
     val = cleanInput(val);
-    
+
     var parens = parseParens(val),
         org = val;
 
@@ -81,7 +82,7 @@ function parseInput(val) {
             }
         }
     }
-
+    //TODO: Make it understand negatives
     var pos, token;
     for(var o in OPS) {
         if(foundOps[o]>=0) {
@@ -90,7 +91,7 @@ function parseInput(val) {
             break;
         }
     }
-    if(pos === undefined) { return new Tree(val); }
+    if(pos === undefined) { return new Tree(val.replace(/~/, '-')); }
     var tree = new Tree(token);
     tree.left = parseInput(org.substring(0, pos));
     tree.right = parseInput(org.substring(pos+token.length));
