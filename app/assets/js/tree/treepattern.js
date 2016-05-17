@@ -14,7 +14,8 @@ var rules = {
     ANY: "$$$",
     NUM: "###",
     OP: "&&&",
-    TRIG: ">>>"
+    TRIG: ">>>",
+    MARKER: '@@@'
 };
 for(var p in rules) {
     TreePattern[p] = new treePatternRule(rules[p]);

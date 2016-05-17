@@ -91,7 +91,10 @@ function parseInput(val) {
             break;
         }
     }
-    if(pos === undefined) { return new Tree(val.replace(/~/, '-')); }
+    if(pos === undefined) {
+        if(val === '@@@') return new Tree(TreePattern.MARKER); 
+        return new Tree(val.replace(/~/, '-'));
+    }
     var tree = new Tree(token);
     tree.left = parseInput(org.substring(0, pos));
     tree.right = parseInput(org.substring(pos+token.length));

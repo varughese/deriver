@@ -7,7 +7,7 @@ function derive(t) {
         return res;
     }
 
-    //TODO: if(t.contains('*')) console.log('TODO: Product Rule or Constant Rule ');
+    //TODO: if(t.contains('*')) Product Rule or Constant Rule
 
     if(t.contains(TreePattern.TRIG)) {
         return trigRules(t);
@@ -103,4 +103,25 @@ function powerRule(t) {
     else if(tree.equals(_schemas.powerRule.coefficent)) return fns.coefficent();
     else throw "[" + tree.toFlatString() + "]" + " Is not a power rule";
 
+}
+
+
+function trigRules(t) {
+    var tree = t.clone(),
+        tRules = {
+            'sin': parseInput('cos@@@'),
+            'cos': parseInput('-1*sin@@@'),
+            'tan': parseInput('(sec@@@)^2'),
+            'csc': parseInput('-1*csc@@@*cot@@@'),
+            'sec': parseInput('sec@@@*tan@@@'),
+            'cot': parseInput('-1*(csc@@@)^2')
+        };
+
+    if(tRules[t.val]) {
+        return tRules[t.val];
+    } else {
+        throw 'not a trig rule';
+    }
+    //TODO: make replace method for Tree
+    //TODO: add multiply before trig functions
 }
