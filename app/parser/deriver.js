@@ -1,5 +1,5 @@
 function derive(t) {
-    
+
     if(TreePattern.contains(t.val, '+-')) {
         var res = new Tree(t.val);
         res.l(derive(t.left));
@@ -15,6 +15,22 @@ function derive(t) {
 
 }
 
+var _schemas = {
+    powerRule: {
+        basic: '',
+        coefficent: ''
+    }
+};
+
+(function defineSchemas(){
+    _schemas.powerRule.basic = new Tree("^");
+    _schemas.powerRule.basic.l(TreePattern.ANY);
+    _schemas.powerRule.basic.r(TreePattern.NUM);
+
+    _schemas.powerRule.coefficent = new Tree("*");
+    _schemas.powerRule.coefficent.l(TreePattern.NUM);
+    _schemas.powerRule.coefficent.r(_schemas.powerRule.basic);
+})();
 
 function constantRule(t) {
     var schema, res;
@@ -77,16 +93,8 @@ function powerRule(t) {
         }
     };
 
-    var basicSchema = new Tree("^");
-    basicSchema.l(TreePattern.ANY);
-    basicSchema.r(TreePattern.NUM);
-
-    var coefficentSchema = new Tree("*");
-    coefficentSchema.l(TreePattern.NUM);
-    coefficentSchema.r(basicSchema);
-
-    if(tree.equals(basicSchema)) return fns.basic();
-    else if(tree.equals(coefficentSchema)) return fns.coefficent();
-    else throw tree.toFlatString() + "Is not a power rule";
+    if(tree.equals(_schemas.powerRule.basic)) return fns.basic();
+    else if(tree.equals(_schemas.powerRule.coefficent)) return fns.coefficent();
+    else throw "[" + tree.toFlatString() + "]" + " Is not a power rule";
 
 }

@@ -75,8 +75,10 @@ Tree.prototype.clone = function() {
 };
 
 Tree.prototype.contains = function(target) {
+
     var left, right; left = right = false;
-    if(TreePattern.eq(this.val, target)) return true;
+    if(target instanceof Tree && this.equals(target) ||
+       TreePattern.eq(this.val, target)) return true;
     if(this.left) left = this.left.contains(target);
     if(this.right) right = this.right.contains(target);
 
