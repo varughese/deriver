@@ -1,3 +1,21 @@
+describe("Tree Pattern::", function() {
+
+    it("Contains 1 Arg", function() {
+        expect(TreePattern.contains('+', '+-')).toBeTruthy();
+    });
+
+    it("Contains Multi Args", function() {
+        expect(TreePattern.contains('+', '-', '+')).toBeTruthy();
+    });
+
+    it("Contains treePatternRule", function() {
+        expect(TreePattern.contains('8', TreePattern.NUM)).toBeTruthy();
+        expect(TreePattern.contains('9', TreePattern.OP)).toBeFalsy();
+        expect(TreePattern.contains('sin', TreePattern.OP, TreePattern.TRIG)).toBeTruthy();
+    });
+
+});
+
 describe("Tree::", function() {
     describe("Creation:", function() {
 
