@@ -83,7 +83,7 @@ function constantRule(t) {
 */
 function powerRule(t) {
     var tree = t.clone();
-
+//TODO Simplify x^1 to just x
     var fns = {
         basic: function() {
             var _tree = new Tree("*");
@@ -105,6 +105,16 @@ function powerRule(t) {
 
 }
 
+function chainRule(org, innerFx) {
+    var res = new Tree("*");
+    if(innerFx.right && (innerFx.right.val !== 'x')  && !TreePattern.eq(derive(innerFx.right), 1)) {
+        res.l(org);
+        res.r(derive(innerFx));
+        return res;
+    } else {
+        return org;
+    }
+}
 
 function trigRules(t) {
     var tree = t.clone(),
@@ -118,18 +128,11 @@ function trigRules(t) {
         };
 
     if(tRules[t.val]) {
-        var res = new Tree("*"),
-            rep = tRules[t.val].clone();
+        var res = tRules[t.val].clone();
 
-        rep.replace(TreePattern.MARKER, t.right);
+        res.replace(TreePattern.MARKER, t.right);
 
-        if(t.right && (t.right.val !== 'x')  && !TreePattern.eq(derive(t.right), 1)) {
-            res.l(rep);
-            res.r(derive(t.right));
-        } else {
-            res = rep;
-        }
-        return res;
+        return chainRule(res, t.right);
     } else {
         throw 'not a trig rule';
     }
