@@ -7,7 +7,7 @@ function derive(t) {
         return res;
     }
 
-    //TODO: if(t.contains('*')) Product Rule or Constant Rule
+    //TODO: if(t.contains('*')) Product Rule or Constant Rule, better handling of which rule to use
 
     if(t.contains(TreePattern.TRIG)) {
         return trigRules(t);
@@ -95,7 +95,7 @@ function powerRule(t) {
         coefficent: function() {
             var c = tree.right.right.val--;
             tree.left.val *= c;
-            return tree;
+            return chainRule(tree, tree.right.left);
         }
     };
 
@@ -136,6 +136,4 @@ function trigRules(t) {
     } else {
         throw 'not a trig rule';
     }
-    //TODO: make replace method for Tree
-    //TODO: add multiply before trig functions
 }
