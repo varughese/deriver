@@ -51,7 +51,8 @@ var OPS = {
     'tan': 8,
     'csc': 9,
     'sec': 10,
-    'cot': 11
+    'cot': 11,
+    'ln': 12
 };
 
 function parseInput(val) {
@@ -92,7 +93,7 @@ function parseInput(val) {
         }
     }
     if(pos === undefined) {
-        if(val === '@@@') return new Tree(TreePattern.MARKER); 
+        if(val === '@@@') return new Tree(TreePattern.MARKER);
         return new Tree(val.replace(/~/, '-'));
     }
     var tree = new Tree(token);

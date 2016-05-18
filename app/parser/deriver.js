@@ -13,6 +13,10 @@ function derive(t) {
         return trigRules(t);
     }
 
+    if(t.contains(TreePattern.LOG)) {
+        return logRule(t);
+    }
+
     if(t.contains(_schemas.powerRule.basic)) {
         return powerRule(t);
     } else {
@@ -136,4 +140,9 @@ function trigRules(t) {
     } else {
         throw 'not a trig rule';
     }
+}
+
+
+function logRule(t) {
+
 }
