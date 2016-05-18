@@ -85,6 +85,21 @@ Tree.prototype.contains = function(target) {
     return left || right;
 };
 
+Tree.prototype.replace = function(target, replace) {
+    if(TreePattern.eq(this.val, target)) {
+        if(replace instanceof Tree) {
+            this.val = replace.val;
+            this.l(replace.left);
+            this.r(replace.right);
+            return;
+        } else {
+            this.val = replace;
+        }
+    }
+    if(this.left) this.left.replace(target, replace);
+    if(this.right) this.right.replace(target, replace);
+};
+
 Tree.prototype.toString = function(num) {
     if(!num) num = 2;
     var left = Array(num+1).join(".") + this.left.toString(num+2),

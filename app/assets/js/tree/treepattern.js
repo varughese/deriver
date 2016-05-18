@@ -24,17 +24,21 @@ for(var p in rules) {
 var _defaults = {
     "###": 1,
     "&&&": '+',
-    ">>>": 'sin'
+    ">>>": 'sin',
+    "@@@": '@@@'
 };
 
 TreePattern.fns = {
     "###": function(val) { return !isNaN(val); },
     "&&&": function(val) { return val && "+-/*^".indexOf(val) > -1; },
-    ">>>": function(val) { return val && "sin|cos|tan|csc|sec|cot".indexOf(val) > -1 ; }
+    ">>>": function(val) { return val && "sin|cos|tan|csc|sec|cot".indexOf(val) > -1 ; },
+    "@@@": function(val) { return val === '@@@'; }
 };
 
 
 TreePattern.eq = function(val, pattern) {
+    if(pattern == TreePattern.ANY || val == TreePattern.ANY) return true;
+
     if(val instanceof treePatternRule) {
         // ensure pattern has the treePatternRule and val is a simple value
         var temp = pattern;
@@ -42,7 +46,6 @@ TreePattern.eq = function(val, pattern) {
         val = temp;
     }
 
-    if(pattern == TreePattern.ANY) return true;
 
     if(val instanceof treePatternRule) {
         // if they are both treePatternRule, then convert val to simple value

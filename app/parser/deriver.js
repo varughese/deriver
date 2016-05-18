@@ -118,7 +118,18 @@ function trigRules(t) {
         };
 
     if(tRules[t.val]) {
-        return tRules[t.val];
+        var res = new Tree("*"),
+            rep = tRules[t.val].clone();
+
+        rep.replace(TreePattern.MARKER, t.right);
+
+        if(t.right && (t.right.val !== 'x')  && !TreePattern.eq(derive(t.right), 1)) {
+            res.l(rep);
+            res.r(derive(t.right));
+        } else {
+            res = rep;
+        }
+        return res;
     } else {
         throw 'not a trig rule';
     }
