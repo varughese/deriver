@@ -65,17 +65,3 @@ TreePattern.eq = function(val, pattern) {
 
     return val == pattern;
 };
-
-
-TreePattern.contains = function(val) {
-    var args = [].slice.call(arguments);
-    args.shift();
-    for(var a in args) {
-        if(args[a] instanceof treePatternRule) {
-            if(this.eq(val, args[a])) return true;
-        } else if(args[a].indexOf(val) > -1) {
-            return true;
-        }
-    }
-    return false;
-};

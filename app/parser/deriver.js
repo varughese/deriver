@@ -1,6 +1,6 @@
 function derive(t) {
     //TODO error check: make sure t has a left tree
-    if(!t.left && !t.right) throw t + " /n is not a proper tree";
+    if(!t.left && !t.right) throw t + " \n is not a proper tree";
     // Sum and Difference Rule
     if(t.val === '+' || t.val === '-') {
         var res = new Tree(t.val);
