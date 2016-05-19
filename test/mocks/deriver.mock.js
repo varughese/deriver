@@ -1,5 +1,4 @@
-console.log('jawn');
-var data = {
+var __derivertestdata = {
     'constant': [
         ['2', '0'],
         ['2x', '2']
