@@ -137,6 +137,33 @@ function productRule(t) {
     return res;
 }
 
+function quotientRule(t) {
+    var res = new Tree('/'),
+        num = new Tree('-'),
+        denom = new Tree('^'),
+        lo = t.left,
+        hi = t.right,
+        loDHi = new Tree("*"),
+        hiDlo = new Tree("*");
+
+    loDHi.l(lo);
+    loDHi.r(derive(hi));
+
+    hiDlo.l(hi);
+    hiDlo.r(derive(lo));
+
+    num.l(loDHi);
+    num.r(hiDlo);
+
+    denom.l(hi);
+    denom.r(2);
+
+    res.l(num);
+    res.r(denom);
+
+    return res;
+}
+
 function chainRule(org, innerFx) {
     if(innerFx.right) {
         var res = new Tree("*");
