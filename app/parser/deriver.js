@@ -1,5 +1,7 @@
 function derive(t) {
-    if(!t.left && !t.right) return new Tree(0);
+    if(t.val === 'x') return new Tree(1);
+
+    if(!t.left && !t.right || TreePattern.eq(t.val, TreePattern.NUM)) return new Tree(0);
 
     // Sum and Difference Rule
     if(t.val === '+' || t.val === '-') {
@@ -71,41 +73,16 @@ var _schemas = {
 })();
 
 function constantRule(t) {
-    var schema, res;
+    var res = new Tree('*'),
+        d = derive(t.right);
 
-    var fns = [
-        function() {
-            schema = new Tree(TreePattern.NUM);
-            res = 0;
-        },
-        function() {
-            schema = new Tree("*");
-            schema.l(TreePattern.NUM);
-            schema.r("x");
-            res = t.left.val;
-        },
-        function() {
-            schema = new Tree("*");
-            schema.l("x");
-            schema.r(TreePattern.NUM);
-            res = t.right.val;
-        },
-        function() {
-            schema = new Tree("x");
-            res = 1;
-        },
-        function() {
-            throw t.toFlatString() + " not a constant rule";
-        }
-    ];
+    if(d.val === 1) return new Tree(t.left.val);
+    if(TreePattern.eq(d.val, TreePattern.NUM)) return new Tree(t.left.val * d.val);
 
-    var i = 0;
-    while(!t.equals(schema)) {
-        fns[i]();
-        i++;
-    }
+    res.l(t.left);
+    res.r(d);
 
-    return new Tree(res);
+    return res;
 }
 
 function powerRule(t) {
