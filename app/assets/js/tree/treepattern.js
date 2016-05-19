@@ -15,7 +15,8 @@ var rules = {
     NUM: "###",
     OP: "&&&",
     TRIG: ">>>",
-    MARKER: '@@@'
+    MARKER: '@@@',
+    LOG: ',,,'
 };
 for(var p in rules) {
     TreePattern[p] = new treePatternRule(rules[p]);
@@ -25,14 +26,16 @@ var _defaults = {
     "###": 1,
     "&&&": '+',
     ">>>": 'sin',
-    "@@@": '@@@'
+    "@@@": '@@@',
+    ",,,": 'ln'
 };
 
 TreePattern.fns = {
     "###": function(val) { return !isNaN(val); },
     "&&&": function(val) { return val && "+-/*^".indexOf(val) > -1; },
     ">>>": function(val) { return val && "sin|cos|tan|csc|sec|cot".indexOf(val) > -1 ; },
-    "@@@": function(val) { return val === '@@@'; }
+    "@@@": function(val) { return val === '@@@'; },
+    ",,,": function(val) { return val && "ln|log".indexOf(val) > -1; }
 };
 
 

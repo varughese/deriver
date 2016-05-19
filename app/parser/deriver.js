@@ -9,9 +9,13 @@ function derive(t) {
 
     //TODO: if(t.contains('*')) Product Rule or Constant Rule, better handling of which rule to use
 
+    if(t.contains(TreePattern.LOG)) {
+        return logRule(t);
+    }
     if(t.contains(TreePattern.TRIG)) {
         return trigRules(t);
     }
+
 
     if(t.contains(_schemas.powerRule.basic)) {
         return powerRule(t);
@@ -106,14 +110,19 @@ function powerRule(t) {
 }
 
 function chainRule(org, innerFx) {
-    var res = new Tree("*");
-    if(innerFx.right && (innerFx.right.val !== 'x')  && !TreePattern.eq(derive(innerFx.right), 1)) {
-        res.l(org);
-        res.r(derive(innerFx));
-        return res;
-    } else {
-        return org;
+    if(innerFx.right) {
+        var res = new Tree("*");
+        var d = derive(innerFx);
+        if(d.val != '1' &&
+          ((d.val == '*' && d.right.val != '1') || d.val != '*')) {
+            res.l(org);
+            res.r(d);
+
+            return res;
+        }
     }
+
+    return org;
 }
 
 function trigRules(t) {
@@ -135,5 +144,15 @@ function trigRules(t) {
         return chainRule(res, t.right);
     } else {
         throw 'not a trig rule';
+    }
+}
+
+
+function logRule(t) {
+    if(t.val == 'ln') {
+        var res = new Tree('/');
+        res.l('1');
+        res.r(t.right);
+        return chainRule(res, t.right);
     }
 }
