@@ -9,6 +9,19 @@ function derive(t) {
 
     //TODO: if(t.contains('*')) Product Rule or Constant Rule, better handling of which rule to use
 
+    if(t.val === '*') {
+        if(t.left && !TreePattern.eq(t.left.val, TreePattern.NUM)) {
+            if(t.right) {
+                if(!TreePattern.eq(t.right.val, TreePattern.NUM)) {
+                    return productRule(t);
+                }
+                if(TreePattern.eq(t.right.val, 'x')) {
+                    return constantRule(t);
+                }
+            }
+        }
+    }
+
     if(t.contains(TreePattern.LOG)) {
         return logRule(t);
     }

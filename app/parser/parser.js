@@ -83,7 +83,7 @@ function parseInput(val) {
             }
         }
     }
-    //TODO: Make it understand negatives
+    //TODO: Fix cosine and sine bug with multiply
     var pos, token;
     for(var o in OPS) {
         if(foundOps[o]>=0) {
