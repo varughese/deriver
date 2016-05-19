@@ -1,9 +1,11 @@
 function derive(t) {
-
+    // Sum and Difference Rule
     if(TreePattern.contains(t.val, '+-')) {
         var res = new Tree(t.val);
         res.l(derive(t.left));
         res.r(derive(t.right));
+        if(res.right.val === 0) return res.left;
+        if(res.left.val === 0) return res.right;
         return res;
     }
 
