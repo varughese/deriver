@@ -20,6 +20,11 @@ function derive(t) {
         }
     }
 
+    if(t.val === '/') {
+        return quotientRule(t);
+        //TODO make this check better and deal with fractions 
+    }
+
     if(t.contains(TreePattern.LOG)) {
         return logRule(t);
     }
