@@ -26,3 +26,7 @@ span.glyphicon-remove{
 span.glyphicon-remove:hover{
     color: darkred;
 }
+
+#real-time-input{
+    visibility: visible;
+}

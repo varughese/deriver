@@ -2,12 +2,24 @@ var val, powerruled;
 
 function appendHistory(v) {
     // you gonna have to change this function so you can pass in ID that identifies it, and add that ID as an attribute to this element
-    $(".history").append("<div class='history-item'><span class='glyphicon glyphicon-remove'></span>"+"\\("+v+"\\)"+"</div>");
+    $(".history").append("<div class='history-item'><span class='glyphicon glyphicon-remove'></span>\\("+v+"\\)</div>");
 }
+
 
 $(document).ready(function(){
     Storage.get().reverse().map(function(n) {
         appendHistory(n);
+    });
+
+    $("#input").bind("keyup change", function(){
+        $("#real-time-input").css("visibility", "hidden");
+        $("#real-time-input").html("<div id='buffer'>\\("+$(this).val()+"\\)"+"<div>");
+        MathJax.Hub.Queue(
+            ["Typeset",MathJax.Hub],
+            MathJax.Callback.Delay(250, [function() {
+                $("#real-time-input").css("visibility", "visible");
+            }])
+        );
     });
 
   $("#submit").click(function(){
