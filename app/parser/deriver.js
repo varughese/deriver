@@ -1,8 +1,8 @@
 function derive(t) {
     //TODO error check: make sure t has a left tree
-
+    if(!t.left && !t.right) throw t + " /n is not a proper tree";
     // Sum and Difference Rule
-    if(TreePattern.contains(t.val, '+-')) {
+    if(t.val === '+' || t.val === '-') {
         var res = new Tree(t.val);
         res.l(derive(t.left));
         res.r(derive(t.right));
@@ -25,35 +25,33 @@ function derive(t) {
         }
     }
 
+    // Power Rule and Exponential Rule
     if(t.val === '^') {
         if(!TreePattern.eq(t.left.val, TreePattern.NUM)) {
             if(TreePattern.eq(t.left.val, TreePattern.NUM)) {
                 return powerRule(t);
             }
         } else {
-            if(TreePattern.eq(t.right.val, 'x')) {
+            if(!TreePattern.eq(t.right.val, TreePattern.NUM)) {
                 return exponentialRule(t);
             }
         }
     }
 
+    // Quotient Rule
     if(t.val === '/') {
         return quotientRule(t);
         //TODO make this check better and deal with fractions
     }
 
-    if(t.contains(TreePattern.LOG)) {
+    // Log Rules
+    if(TreePattern.eq(t.val, TreePattern.LOG)) {
         return logRule(t);
     }
-    if(t.contains(TreePattern.TRIG)) {
+
+    // Trig Rules
+    if(TreePattern.eq(t.val, TreePattern.TRIG)) {
         return trigRules(t);
-    }
-
-
-    if(t.contains(_schemas.powerRule.basic)) {
-        return powerRule(t);
-    } else {
-        return constantRule(t);
     }
 
 }
