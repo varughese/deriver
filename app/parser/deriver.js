@@ -1,4 +1,6 @@
 function derive(t) {
+    //TODO error check: make sure t has a left tree
+
     // Sum and Difference Rule
     if(TreePattern.contains(t.val, '+-')) {
         var res = new Tree(t.val);
@@ -9,8 +11,9 @@ function derive(t) {
         return res;
     }
 
+    // Product Rule and Constant Rule
     if(t.val === '*') {
-        if(t.left && !TreePattern.eq(t.left.val, TreePattern.NUM)) {
+        if(!TreePattern.eq(t.left.val, TreePattern.NUM)) {
             if(t.right) {
                 if(!TreePattern.eq(t.right.val, TreePattern.NUM)) {
                     return productRule(t);
@@ -18,6 +21,18 @@ function derive(t) {
                 if(TreePattern.eq(t.right.val, 'x')) {
                     return constantRule(t);
                 }
+            }
+        }
+    }
+
+    if(t.val === '^') {
+        if(!TreePattern.eq(t.left.val, TreePattern.NUM)) {
+            if(TreePattern.eq(t.left.val, TreePattern.NUM)) {
+                return powerRule(t);
+            }
+        } else {
+            if(TreePattern.eq(t.right.val, 'x')) {
+                return exponentialRule(t);
             }
         }
     }
