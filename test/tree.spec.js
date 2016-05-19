@@ -1,19 +1,5 @@
 describe("Tree Pattern::", function() {
 
-    it("Contains 1 Arg", function() {
-        expect(TreePattern.contains('+', '+-')).toBeTruthy();
-    });
-
-    it("Contains Multi Args", function() {
-        expect(TreePattern.contains('+', '-', '+')).toBeTruthy();
-    });
-
-    it("Contains treePatternRule", function() {
-        expect(TreePattern.contains('8', TreePattern.NUM)).toBeTruthy();
-        expect(TreePattern.contains('9', TreePattern.OP)).toBeFalsy();
-        expect(TreePattern.contains('sin', TreePattern.OP, TreePattern.TRIG)).toBeTruthy();
-    });
-
 });
 
 describe("Tree::", function() {
@@ -135,6 +121,16 @@ describe("Tree::", function() {
         ......[x]
         ......[5]
         */
+        it("Contains method", function() {
+
+
+            expect(tree.contains(3)).toBeTruthy();
+            expect(tree.contains("x")).toBeTruthy();
+            expect(tree.contains(TreePattern.ANY)).toBeTruthy();
+            expect(tree.contains(TreePattern.NUM)).toBeTruthy();
+            expect(tree.contains(9)).toBeFalsy();
+            expect(tree.contains("/")).toBeFalsy();
+        });
 
     });
 

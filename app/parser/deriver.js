@@ -1,6 +1,6 @@
 function derive(t) {
-    //TODO error check: make sure t has a left tree
-    if(!t.left && !t.right) throw t + " \n is not a proper tree";
+    if(!t.left && !t.right) return new Tree(0);
+
     // Sum and Difference Rule
     if(t.val === '+' || t.val === '-') {
         var res = new Tree(t.val);
@@ -13,14 +13,11 @@ function derive(t) {
 
     // Product Rule and Constant Rule
     if(t.val === '*') {
-        if(!TreePattern.eq(t.left.val, TreePattern.NUM)) {
-            if(t.right) {
-                if(!TreePattern.eq(t.right.val, TreePattern.NUM)) {
-                    return productRule(t);
-                }
-                if(TreePattern.eq(t.right.val, 'x')) {
-                    return constantRule(t);
-                }
+        if(!TreePattern.eq(t.right.val, TreePattern.NUM)) {
+            if(!TreePattern.eq(t.left.val, TreePattern.NUM)) {
+                return productRule(t);
+            } else {
+                return constantRule(t);
             }
         }
     }
