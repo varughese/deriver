@@ -22,7 +22,7 @@ function derive(t) {
 
     if(t.val === '/') {
         return quotientRule(t);
-        //TODO make this check better and deal with fractions 
+        //TODO make this check better and deal with fractions
     }
 
     if(t.contains(TreePattern.LOG)) {
@@ -96,14 +96,8 @@ function constantRule(t) {
     return new Tree(res);
 }
 
-/*
-    basic: x^5
-    coefficent: 3*x^5
-    complex: 3*(10*x)^5
-*/
 function powerRule(t) {
     var tree = t.clone();
-//TODO Simplify x^1 to just x
     var fns = {
         basic: function() {
             var _tree = new Tree("*");
@@ -115,7 +109,10 @@ function powerRule(t) {
         coefficent: function() {
             var c = tree.right.right.val--;
             tree.left.val *= c;
-            return chainRule(tree, tree.right.left);
+            if(tree.right.right.val === 1) {
+                tree.right = tree.right.left;
+            }
+            return chainRule(tree, tree.right);
         }
     };
 
