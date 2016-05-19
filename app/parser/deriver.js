@@ -7,8 +7,6 @@ function derive(t) {
         return res;
     }
 
-    //TODO: if(t.contains('*')) Product Rule or Constant Rule, better handling of which rule to use
-
     if(t.val === '*') {
         if(t.left && !TreePattern.eq(t.left.val, TreePattern.NUM)) {
             if(t.right) {
