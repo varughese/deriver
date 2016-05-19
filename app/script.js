@@ -2,7 +2,7 @@ var val, powerruled;
 
 function appendHistory(v) {
     // you gonna have to change this function so you can pass in ID that identifies it, and add that ID as an attribute to this element
-    $(".history").append("<div class='history-item'><span class='glyphicon glyphicon-remove'></span>"+v+"</div>");
+    $(".history").append("<div class='history-item'><span class='glyphicon glyphicon-remove'></span>"+"\\("+v+"\\)"+"</div>");
 }
 
 $(document).ready(function(){
@@ -13,6 +13,7 @@ $(document).ready(function(){
   $("#submit").click(function(){
     val = $("#input").val();
     appendHistory(val);
+    MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
     Storage.add(val);
 
     val = parseInput(cleanInput(val));
