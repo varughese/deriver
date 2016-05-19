@@ -109,6 +109,23 @@ function powerRule(t) {
 
 }
 
+function productRule(t) {
+    var res = new Tree("+"),
+        left = new Tree("*"),
+        right = new Tree("*");
+
+    left.l(t.left);
+    left.r(derive(t.right));
+
+    right.l(t.right);
+    right.r(derive(t.left));
+
+    res.l(left);
+    res.r(right);
+
+    return res;
+}
+
 function chainRule(org, innerFx) {
     if(innerFx.right) {
         var res = new Tree("*");
