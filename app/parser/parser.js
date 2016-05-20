@@ -38,6 +38,16 @@ function cleanInput(val) {
             val = val.splice(pos, '*');
         }
     }
+
+    var logs = val.findChar('log');
+    for(var l=logs.length-1; l>=0; l--) {
+        var logPos = logs[l],
+            comma = val.indexOf(',', logPos),
+            base = val.substring(logPos+4, comma);
+
+        val = val.cut(logPos+4,comma+1).splice(logPos, base);
+    }
+
     return val;
 }
 

@@ -28,5 +28,14 @@ describe("Helpers::", function() {
             expect(cleanInput("(3+x)(3+x)")).toBe("(3+x)*(3+x)");
             expect(cleanInput("(3+x)(3+x)(6+x)")).toBe("(3+x)*(3+x)*(6+x)");
         });
+
+        it("Logarithm Base Movement", function() {
+            expect(cleanInput('log(5,x)')).toBe('5log(x)');
+            expect(cleanInput('log(5,x)+log(6,x)')).toBe('5log(x)+6log(x)');
+            expect(cleanInput('log(56,x)')).toBe('56log(x)');
+            expect(cleanInput('log(5,x^2)')).toBe('5log(x^2)');
+            expect(cleanInput('log(x+2,x^2)')).toBe('x+2log(x^2)');
+        });
+
     });
 });
