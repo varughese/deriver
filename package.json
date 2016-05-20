@@ -16,7 +16,7 @@
   },
   "scripts": {
     "build": "npm install && bower install && npm run open",
-    "test": "karma start",
+    "test": "karma start  --single-run",
     "open": "start chrome ./app/index.html"
   },
   "repository": {
