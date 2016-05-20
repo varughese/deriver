@@ -25,6 +25,12 @@ describe("Deriver::", function() {
         }
     });
 
+    it("Exponential Rules", function() {
+        for(var arr in data.exp) {
+            expect(derive(parseInput(data.exp[arr][0]))).toEqual(parseInput(data.exp[arr][1]));
+        }
+    });
+
     it("Sum diff Rule", function() {
         for(var arr in data.sumdiff) {
             expect(derive(parseInput(data.sumdiff[arr][0]))).toEqual(parseInput(data.sumdiff[arr][1]));

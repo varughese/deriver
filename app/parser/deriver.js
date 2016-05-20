@@ -30,9 +30,7 @@ function derive(t) {
                 return powerRule(t);
             }
         } else {
-            if(!TreePattern.eq(t.left.val, TreePattern.NUM)) {
-                return exponentialRule(t);
-            }
+            return exponentialRule(t);
         }
     }
 
@@ -200,22 +198,26 @@ function trigRules(t) {
         res.replace(TreePattern.MARKER, t.right);
 
         return chainRule(res, t.right);
-    } else {
-        throw 'not a trig rule';
     }
 }
 
 
 function logRule(t) {
+    var res = new Tree('/');
     if(t.val == 'ln') {
-        var res = new Tree('/');
-        res.l('1');
+        res.l(derive(t.right));
         res.r(t.right);
-        return chainRule(res, t.right);
+        return res;
     }
     //TODO finish out all the log rules
 }
 
 function exponentialRule(t) {
-    //TODO all this
+    var res = new Tree("*"),
+        ln = new Tree("ln");
+
+    res.l(t.clone());
+    ln.r(t.left);
+    res.r(ln);
+    return chainRule(res, t.right);
 }
