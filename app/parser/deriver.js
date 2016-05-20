@@ -76,7 +76,6 @@ function constantRule(t) {
     res.l(c);
     res.r(d);
 
-
     return res;
 }
 
@@ -114,22 +113,43 @@ function quotientRule(t) {
     var res = new Tree('/'),
         num = new Tree('-'),
         denom = new Tree('^'),
-        lo = t.left,
-        hi = t.right,
+        hi = t.left,
+        lo = t.right,
+        dHi = derive(hi),
+        dLo = derive(lo),
         loDHi = new Tree("*"),
-        hiDlo = new Tree("*");
+        hiDLo = new Tree("*");
 
-    loDHi.l(lo);
-    loDHi.r(derive(hi));
+    if(dHi.val !== 1) {
+        loDHi.l(lo);
+        loDHi.r(dHi);
+    } else {
+        loDHi = lo;
+    }
 
-    hiDlo.l(hi);
-    hiDlo.r(derive(lo));
+    if(dLo.val !== 1) {
+        hiDLo.l(hi);
+        hiDLo.r(dLo);
+    } else {
+        hiDLo = hi;
+    }
 
     num.l(loDHi);
-    num.r(hiDlo);
+    num.r(hiDLo);
 
-    denom.l(hi);
+    if(num.right.val === 0) {
+        num = num.left;
+    }
+    if(num.left.val === 0) {
+        num = num.right;
+    }
+
+    denom.l(lo);
     denom.r(2);
+
+    if(TreePattern.eq(lo.val, TreePattern.NUM)) {
+        denom = new Tree(lo.val * lo.val);
+    }
 
     res.l(num);
     res.r(denom);
@@ -141,8 +161,7 @@ function chainRule(org, innerFx) {
     if(innerFx.right) {
         var res = new Tree("*");
         var d = derive(innerFx);
-        if(d.val != '1' &&
-          ((d.val == '*' && d.right.val != '1') || d.val != '*')) {
+        if(d.val != '1') {
             res.l(org);
             res.r(d);
 

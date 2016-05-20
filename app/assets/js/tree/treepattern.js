@@ -58,6 +58,7 @@ TreePattern.eq = function(val, pattern) {
             console.log("No " + val);
     }
 
+    if(val instanceof Tree) val = val.val;
 
     if(this.fns[pattern.rule]) {
         return this.fns[pattern.rule](val);

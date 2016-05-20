@@ -1,6 +1,6 @@
 function replaceNegatives(val){
     for(var i=0; i<val.length; i++){
-        if(val.charAt(i)==='-' && (i===0 || "+*^/-".indexOf(val.charAt(i-1))>-1)){
+        if(val.charAt(i)==='-' && (i===0 || "+*^/-(".indexOf(val.charAt(i-1))>-1)){
             val = val.replaceAt(i,'~');
         }
     }
@@ -26,6 +26,7 @@ function parseParens(val) {
 }
 
 function cleanInput(val) {
+    //TODO add multiply after and before trig
     val = replaceNegatives(val.removeSpaces());
     var missingMultiply = val.findChar('(').concat(val.findChar('x')).sort(function(a, b) {
         return a - b;
@@ -83,7 +84,7 @@ function parseInput(val) {
             }
         }
     }
-    
+
     var pos, token;
     for(var o in OPS) {
         if(foundOps[o]>=0) {
