@@ -212,12 +212,12 @@ function trigRules(t) {
 
 function logRule(t) {
     var res = new Tree('/');
-    if(t.val == 'ln') {
-        res.l(derive(t.right));
-        res.r(t.right);
-        return res;
-    }
-    //TODO finish out all the log rules
+
+    if(TreePattern.eq(t.right, TreePattern.NUM)) return new Tree(0);
+
+    res.l(derive(t.right));
+    res.r(t.right);
+    return res;
 }
 
 function exponentialRule(t) {

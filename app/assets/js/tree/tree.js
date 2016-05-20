@@ -79,6 +79,7 @@ Tree.prototype.switch = function() {
     var temp = this.right;
     this.right = this.left;
     this.left = temp;
+    return this;
 };
 
 Tree.prototype.contains = function(target) {
