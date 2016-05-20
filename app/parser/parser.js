@@ -42,10 +42,22 @@ function cleanInput(val) {
     var logs = val.findChar('log');
     for(var l=logs.length-1; l>=0; l--) {
         var logPos = logs[l],
+            parens = parseParens(val),
             comma = val.indexOf(',', logPos),
-            base = val.substring(logPos+4, comma);
+            base = val.substring(logPos+4, comma),
+            arg = val.substring(comma+1, val.indexOf(')', comma)),
+            endParen;
 
-        val = val.cut(logPos+4,comma+1).splice(logPos, base);
+        for(var arr in parens) {
+            if(parens[arr][0] === logPos+3) {
+                endParen = parens[arr][1];
+                break;
+            }
+        }
+
+        arg = val.substring(comma+1, endParen);
+        var replace = "ln(" + arg + ")/ln(" + base + ")";
+        val = val.cut(logPos, endParen).splice(logPos, replace);
     }
 
     return val;

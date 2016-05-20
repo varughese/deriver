@@ -29,12 +29,11 @@ describe("Helpers::", function() {
             expect(cleanInput("(3+x)(3+x)(6+x)")).toBe("(3+x)*(3+x)*(6+x)");
         });
 
-        it("Logarithm Base Movement", function() {
-            expect(cleanInput('log(5,x)')).toBe('5log(x)');
-            expect(cleanInput('log(5,x)+log(6,x)')).toBe('5log(x)+6log(x)');
-            expect(cleanInput('log(56,x)')).toBe('56log(x)');
-            expect(cleanInput('log(5,x^2)')).toBe('5log(x^2)');
-            expect(cleanInput('log(x+2,x^2)')).toBe('x+2log(x^2)');
+        it("Logarithm Change of Base", function() {
+            expect(cleanInput('log(4,6)')).toBe("ln(6)/ln(4)");
+            expect(cleanInput('log(4,(x+3)+x)')).toBe("ln((x+3)+x)/ln(4)");
+            expect(cleanInput('log(x+2,x+2x-3(4x))-log(4,(x+3)+x+sinx)')).toBe("ln(x+2*x-3*(4*x))/ln(x+2)-ln((x+3)+x+sinx)/ln(4)");
+            expect(cleanInput('log(x+2(x-sinx), x+5)')).toBe("ln(x+5)/ln(x+2*(x-sinx))");
         });
 
     });

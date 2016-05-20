@@ -3,7 +3,7 @@ String.prototype.splice = function(start, newSubStr) {
 };
 
 String.prototype.cut = function (start, end) {
-    return this.substring(0, start) + this.substring(end);
+    return this.substring(0, start) + this.substring(end+1);
 };
 
 String.prototype.replaceAt=function(index, char){
