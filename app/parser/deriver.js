@@ -1,4 +1,6 @@
 function derive(t) {
+    if(!(t instanceof Tree)) t = parseInput(t);
+
     if(t.val === 'x') return new Tree(1);
 
     if(!t.left && !t.right || TreePattern.eq(t.val, TreePattern.NUM)) return new Tree(0);

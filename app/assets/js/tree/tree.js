@@ -119,5 +119,5 @@ Tree.prototype.toString = function(num) {
 Tree.prototype.toFlatString = function() {
     var left = this.left ? this.left.toFlatString() : '';
     var right = this.right ? this.right.toFlatString() : '';
-    return  left + " " + this.val + " " + right;
+    return  left + "" + this.val + "" + right;
 };
