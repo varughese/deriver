@@ -25,12 +25,12 @@ function derive(t) {
 
     // Power Rule and Exponential Rule
     if(t.val === '^') {
-        if(!TreePattern.eq(t.left.val, TreePattern.NUM)) {
-            if(TreePattern.eq(t.left.val, TreePattern.NUM)) {
+        if(TreePattern.eq(t.right.val, TreePattern.NUM)) {
+            if(!TreePattern.eq(t.left.val, TreePattern.NUM)) {
                 return powerRule(t);
             }
         } else {
-            if(!TreePattern.eq(t.right.val, TreePattern.NUM)) {
+            if(!TreePattern.eq(t.left.val, TreePattern.NUM)) {
                 return exponentialRule(t);
             }
         }
@@ -68,8 +68,14 @@ function constantRule(t) {
     if(d.val === 1) return new Tree(c);
     if(TreePattern.eq(d.val, TreePattern.NUM)) return new Tree(c * d.val);
 
+    if(d.left && TreePattern.eq(d.left.val, TreePattern.NUM)) {
+        d.left.val *= c;
+        return d;
+    }
+
     res.l(c);
     res.r(d);
+
 
     return res;
 }
@@ -78,25 +84,13 @@ function powerRule(t) {
     var tree = t.clone(),
         res = new Tree("*");
 
-
-
-    var fns = {
-        basic: function() {
-            var _tree = new Tree("*");
-            _tree.l(1);
-            _tree.r(tree);
-            tree = _tree;
-            return this.coefficent();
-        },
-        coefficent: function() {
-            var c = tree.right.right.val--;
-            tree.left.val *= c;
-            if(tree.right.right.val === 1) {
-                tree.right = tree.right.left;
-            }
-            return chainRule(tree, tree.right);
-        }
-    };
+    var c = tree.right.val--;
+    res.l(c);
+    if(tree.right.val === 1) {
+        tree = tree.left;
+    }
+    res.r(tree);
+    return chainRule(res, tree.right);
 }
 
 function productRule(t) {
