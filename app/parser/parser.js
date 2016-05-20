@@ -26,11 +26,18 @@ function parseParens(val) {
 }
 
 function cleanInput(val) {
-    //TODO add multiply after and before trig
     val = replaceNegatives(val.removeSpaces());
-    var missingMultiply = val.findChar('(').concat(val.findChar('x')).sort(function(a, b) {
+
+    var missingMultiply = [];
+
+    TreePattern.checkMultiply.map(function(n) {
+        missingMultiply = missingMultiply.concat(val.findChar(n));
+    });
+
+    missingMultiply.sort(function(a, b) {
         return a - b;
     });
+
     for(var p=missingMultiply.length-1; p>=0; p--) {
         var pos = missingMultiply[p],
             token = val[pos-1];
@@ -63,29 +70,6 @@ function cleanInput(val) {
     return val;
 }
 
-var OPS = {
-    '+': 1,
-    '-': 1,
-    '*': 2,
-    '/': 2,
-    '^': 3,
-    'arcsin': 4,
-    'arccos': 4,
-    'arctan': 4,
-    'arccsc': 4,
-    'arcsec': 4,
-    'arccot': 4,
-    'sin': 5,
-    'cos': 5,
-    'tan': 5,
-    'csc': 5,
-    'sec': 5,
-    'cot': 5,
-    'ln': 6,
-    'log': 6,
-    'abs': 7
-};
-
 function parseInput(val) {
     if(val === "") return false;
     val = cleanInput(val);
@@ -108,7 +92,7 @@ function parseInput(val) {
 
     var foundOps = {};
     for(var c=val.length-1; c>=0; c--) {
-        for(var op in OPS) {
+        for(var op in TreePattern.OPS) {
             if(val.substring(c, c+op.length) === op) {
                 foundOps[op] = c;
             }
@@ -116,7 +100,7 @@ function parseInput(val) {
     }
 
     var pos, token;
-    for(var o in OPS) {
+    for(var o in TreePattern.OPS) {
         if(foundOps[o]>=0) {
             pos = foundOps[o];
             token = val.substring(pos, pos+o.length);

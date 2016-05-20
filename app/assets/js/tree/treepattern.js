@@ -30,6 +30,45 @@ var _defaults = {
     ",,,": 'ln'
 };
 
+TreePattern.__OPS = {
+    '+': 1,
+    '-': 1,
+    '*': 2,
+    '/': 2,
+    '^': 3
+};
+
+TreePattern.__FUNCTIONS = {
+    'arcsin': 4,
+    'arccos': 4,
+    'arctan': 4,
+    'arccsc': 4,
+    'arcsec': 4,
+    'arccot': 4,
+    'sin': 5,
+    'cos': 5,
+    'tan': 5,
+    'csc': 5,
+    'sec': 5,
+    'cot': 5,
+    'ln': 6,
+    'log': 6,
+    'abs': 7
+};
+
+TreePattern.OPS = {};
+
+for(var o in TreePattern.__OPS)
+    TreePattern.OPS[o] = TreePattern.__OPS[o];
+
+for(var o in TreePattern.__FUNCTIONS)
+    TreePattern.OPS[o] = TreePattern.__FUNCTIONS[o];
+
+TreePattern.checkMultiply = ['(', 'x'];
+for(var o in TreePattern.__FUNCTIONS)
+    TreePattern.checkMultiply.push(o);
+
+
 TreePattern.fns = {
     "###": function(val) { return !isNaN(val); },
     "&&&": function(val) { return val && "+-/*^".indexOf(val) > -1; },

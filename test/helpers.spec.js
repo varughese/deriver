@@ -29,6 +29,19 @@ describe("Helpers::", function() {
             expect(cleanInput("(3+x)(3+x)(6+x)")).toBe("(3+x)*(3+x)*(6+x)");
         });
 
+        it("Handles trig/logs/other functions", function() {
+            var io = [
+                ['sinxcosx', 'sinx*cosx'],
+                ['3sinx+5sinx', '3*sinx+5*sinx'],
+                ['10arcsinx-8(4sinx)', '10*arcsinx-8*(4*sinx)'],
+                ['8cosx', '8*cosx']
+            ];
+
+            for(var arr in io) {
+                expect(cleanInput(io[arr][0])).toBe(io[arr][1]);
+            }
+        });
+
         it("Logarithm Change of Base", function() {
             expect(cleanInput('log(4,6)')).toBe("ln(6)/ln(4)");
             expect(cleanInput('log(4,(x+3)+x)')).toBe("ln((x+3)+x)/ln(4)");
