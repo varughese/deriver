@@ -1,5 +1,7 @@
 ![alt text](http://i.imgur.com/Vn9S8AI.png?1 "Deriver")
 
+[![Build Status](https://travis-ci.org/jasonawalker/deriver.svg?branch=master)](https://travis-ci.org/jasonawalker/deriver)
+
 A project that attempts to implement the idea of a derivitave (Calculus) in javascript. User input is parsed and the derivitave is given.
 
 ## Possible Concerns
