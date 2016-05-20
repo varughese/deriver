@@ -213,4 +213,9 @@ function logRule(t) {
         res.r(t.right);
         return chainRule(res, t.right);
     }
+    //TODO finish out all the log rules
+}
+
+function exponentialRule(t) {
+    //TODO all this
 }
