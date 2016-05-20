@@ -42,6 +42,7 @@ function cleanInput(val) {
 }
 
 var OPS = {
+    'abs': 0,
     '+': 1,
     '-': 1,
     '*': 2,
