@@ -42,7 +42,6 @@ function cleanInput(val) {
 }
 
 var OPS = {
-    'abs': 0,
     '+': 1,
     '-': 1,
     '*': 2,
@@ -61,7 +60,8 @@ var OPS = {
     'sec': 5,
     'cot': 5,
     'ln': 6,
-    'log': 6
+    'log': 6,
+    'abs': 7
 };
 
 function parseInput(val) {

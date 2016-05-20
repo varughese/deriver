@@ -195,9 +195,8 @@ function trigRules(t) {
             'arcsin': parseInput('1/((1-@@@^2)^(1/2))'),
             'arccos': parseInput('-1/((1-@@@^2)^(1/2))'),
             'arctan': parseInput('1/(1+(@@@^2))'),
-            //TODO Abs value operator
-            // 'arccsc': parseInput('-1*csc@@@*cot@@@'),
-            // 'arcsec': parseInput('sec@@@*tan@@@'),
+            'arccsc': parseInput('-1/(abs(@@@)*(@@@^2-1))'),
+            'arcsec': parseInput('1/(abs(@@@)*(@@@^2-1))'),
             'arccot': parseInput('-1/(1+@@@^2)')
         };
 
