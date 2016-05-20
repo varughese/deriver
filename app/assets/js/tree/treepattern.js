@@ -33,7 +33,7 @@ var _defaults = {
 TreePattern.fns = {
     "###": function(val) { return !isNaN(val); },
     "&&&": function(val) { return val && "+-/*^".indexOf(val) > -1; },
-    ">>>": function(val) { return val && "sin|cos|tan|csc|sec|cot".indexOf(val) > -1 ; },
+    ">>>": function(val) { return val && "sin|cos|tan|csc|sec|cot|arcsin|arccos|arctan|arccsc|arcsec|arccot".indexOf(val) > -1 ; },
     "@@@": function(val) { return val === '@@@'; },
     ",,,": function(val) { return val && "ln|log".indexOf(val) > -1; }
 };

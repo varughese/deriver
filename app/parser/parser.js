@@ -43,17 +43,24 @@ function cleanInput(val) {
 
 var OPS = {
     '+': 1,
-    '-': 2,
-    '*': 3,
-    '/': 4,
-    '^': 5,
-    'sin': 6,
-    'cos': 7,
-    'tan': 8,
-    'csc': 9,
-    'sec': 10,
-    'cot': 11,
-    'ln': 12
+    '-': 1,
+    '*': 2,
+    '/': 2,
+    '^': 3,
+    'arcsin': 4,
+    'arccos': 4,
+    'arctan': 4,
+    'arccsc': 4,
+    'arcsec': 4,
+    'arccot': 4,
+    'sin': 5,
+    'cos': 5,
+    'tan': 5,
+    'csc': 5,
+    'sec': 5,
+    'cot': 5,
+    'ln': 6,
+    'log': 6
 };
 
 function parseInput(val) {

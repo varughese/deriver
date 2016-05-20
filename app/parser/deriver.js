@@ -189,7 +189,14 @@ function trigRules(t) {
             'tan': parseInput('(sec@@@)^2'),
             'csc': parseInput('-1*csc@@@*cot@@@'),
             'sec': parseInput('sec@@@*tan@@@'),
-            'cot': parseInput('-1*(csc@@@)^2')
+            'cot': parseInput('-1*(csc@@@)^2'),
+            'arcsin': parseInput('1/((1-@@@^2)^(1/2))'),
+            'arccos': parseInput('-1/((1-@@@^2)^(1/2))'),
+            'arctan': parseInput('1/(1+(@@@^2))'),
+            //TODO Abs value operator
+            // 'arccsc': parseInput('-1*csc@@@*cot@@@'),
+            // 'arcsec': parseInput('sec@@@*tan@@@'),
+            'arccot': parseInput('-1/(1+@@@^2)')
         };
 
     if(tRules[t.val]) {
