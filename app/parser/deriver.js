@@ -219,5 +219,10 @@ function exponentialRule(t) {
     res.l(t.clone());
     ln.r(t.left);
     res.r(ln);
+
+    if(t.left.val === 'e') {
+        res = t.clone();
+    }
+
     return chainRule(res, t.right);
 }
