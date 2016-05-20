@@ -23,7 +23,7 @@ Tree.prototype.get = function(dir, n) {
 };
 
 Tree.prototype.add = function(dir, val) {
-    if(!val) return;
+    if(val !== 0 && !val) return;
 
     dir = this.getDir(dir);
 

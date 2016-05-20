@@ -137,11 +137,16 @@ function quotientRule(t) {
     num.l(loDHi);
     num.r(hiDLo);
 
-    if(num.right.val === 0) {
+
+    if(num.left.right.val === 0) {
+        num = num.right;
+    }
+    if(num.right.right.val === 0) {
         num = num.left;
     }
-    if(num.left.val === 0) {
-        num = num.right;
+    
+    if(TreePattern.eq(loDHi, TreePattern.NUM) && TreePattern.eq(hiDLo, TreePattern.NUM)) {
+        num = loDHi.val - hiDLo.val;
     }
 
     denom.l(lo);
