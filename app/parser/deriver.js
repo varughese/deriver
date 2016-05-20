@@ -26,9 +26,16 @@ function derive(t) {
     }
 
     // Power Rule and Exponential Rule
-    if(t.val === '^') {
-        if(TreePattern.eq(t.right.val, TreePattern.NUM)) {
-            if(!TreePattern.eq(t.left.val, TreePattern.NUM)) {
+    if(t.val === '^' || t.val === 'sqrt') {
+        if(t.val === 'sqrt') {
+            t.left = t.right.clone();
+            var half = new Tree('/');
+            half.l(1); half.r(2);
+            t.right = half;
+            t.val = "^";
+        }
+        if(TreePattern.eq(t.right, TreePattern.NUM)) {
+            if(!TreePattern.eq(t.left, TreePattern.NUM)) {
                 return powerRule(t);
             }
         } else {
@@ -83,13 +90,20 @@ function powerRule(t) {
     var tree = t.clone(),
         res = new Tree("*");
 
-    var c = tree.right.val--;
-    res.l(c);
-    if(tree.right.val === 1) {
-        tree = tree.left;
+    if(TreePattern.eq(tree.right.val, TreePattern.NUM)) {
+        var c = tree.right.val--;
+        res.l(c);
+        if(tree.right.val === 1) {
+            tree = tree.left;
+        }
+        res.r(tree);
+    } else {
+        res.l(tree.right.clone());
+        tree.right.left.val -= tree.right.right.val;
+        res.r(tree);
     }
-    res.r(tree);
-    return chainRule(res, tree.right);
+
+    return chainRule(res, tree.left);
 }
 
 function productRule(t) {

@@ -53,7 +53,8 @@ TreePattern.__FUNCTIONS = {
     'cot': 5,
     'ln': 6,
     'log': 6,
-    'abs': 7
+    'abs': 7,
+    'sqrt': 7
 };
 
 TreePattern.OPS = {};
@@ -69,7 +70,7 @@ TreePattern.checkParens = [')'].concat(Object.keys(TreePattern.__FUNCTIONS)).con
 
 
 TreePattern.fns = {
-    "###": function(val) { return !isNaN(val); },
+    "###": function(val) { return (val instanceof Tree) ? !isNaN(val.val) || !isNaN(val.left.val) && !isNaN(val.right.val) : !isNaN(val); },
     "&&&": function(val) { return val && "+-/*^".indexOf(val) > -1; },
     ">>>": function(val) { return val && "sin|cos|tan|csc|sec|cot|arcsin|arccos|arctan|arccsc|arcsec|arccot".indexOf(val) > -1 ; },
     "@@@": function(val) { return val === '@@@'; },
@@ -96,11 +97,12 @@ TreePattern.eq = function(val, pattern) {
             console.log("No " + val);
     }
 
-    if(val instanceof Tree) val = val.val;
 
     if(this.fns[pattern.rule]) {
         return this.fns[pattern.rule](val);
     }
+
+    if(val instanceof Tree) val = val.val;
 
     return val == pattern;
 };
