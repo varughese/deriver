@@ -7,7 +7,7 @@ describe("Deriver::", function() {
         }
     });
 
-    xit("Power Rule", function() {
+    it("Power Rule", function() {
         for(var arr in data.power) {
             expect(derive(parseInput(data.power[arr][0]))).toEqual(parseInput(data.power[arr][1]));
         }

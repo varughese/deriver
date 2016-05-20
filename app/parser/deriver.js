@@ -15,13 +15,12 @@ function derive(t) {
 
     // Product Rule and Constant Rule
     if(t.val === '*') {
-        if(!TreePattern.eq(t.right.val, TreePattern.NUM)) {
-            if(!TreePattern.eq(t.left.val, TreePattern.NUM)) {
-                return productRule(t);
-            } else {
-                return constantRule(t);
-            }
-        }
+        if(TreePattern.eq(t.left.val, TreePattern.NUM) ||
+           TreePattern.eq(t.right.val, TreePattern.NUM)) {
+            return constantRule(t);
+       } else {
+           return productRule(t);
+       }
     }
 
     // Power Rule and Exponential Rule
@@ -55,38 +54,32 @@ function derive(t) {
 
 }
 
-var _schemas = {
-    powerRule: {
-        basic: '',
-        coefficent: ''
-    }
-};
-
-(function defineSchemas(){
-    _schemas.powerRule.basic = new Tree("^");
-    _schemas.powerRule.basic.l(TreePattern.ANY);
-    _schemas.powerRule.basic.r(TreePattern.NUM);
-
-    _schemas.powerRule.coefficent = new Tree("*");
-    _schemas.powerRule.coefficent.l(TreePattern.NUM);
-    _schemas.powerRule.coefficent.r(_schemas.powerRule.basic);
-})();
-
 function constantRule(t) {
-    var res = new Tree('*'),
+    var res = new Tree('*'), d, c;
+
+    if(TreePattern.eq(t.right.val, TreePattern.NUM)) {
+        c = t.right.val;
+        d = derive(t.left);
+    } else if(TreePattern.eq(t.left.val, TreePattern.NUM)) {
+        c = t.left.val;
         d = derive(t.right);
+    }
 
-    if(d.val === 1) return new Tree(t.left.val);
-    if(TreePattern.eq(d.val, TreePattern.NUM)) return new Tree(t.left.val * d.val);
+    if(d.val === 1) return new Tree(c);
+    if(TreePattern.eq(d.val, TreePattern.NUM)) return new Tree(c * d.val);
 
-    res.l(t.left);
+    res.l(c);
     res.r(d);
 
     return res;
 }
 
 function powerRule(t) {
-    var tree = t.clone();
+    var tree = t.clone(),
+        res = new Tree("*");
+
+
+
     var fns = {
         basic: function() {
             var _tree = new Tree("*");
@@ -104,11 +97,6 @@ function powerRule(t) {
             return chainRule(tree, tree.right);
         }
     };
-
-    if(tree.equals(_schemas.powerRule.basic)) return fns.basic();
-    else if(tree.equals(_schemas.powerRule.coefficent)) return fns.coefficent();
-    else throw "[" + tree.toFlatString() + "]" + " Is not a power rule";
-
 }
 
 function productRule(t) {

@@ -1,7 +1,8 @@
 var __derivertestdata = {
     'constant': [
         ['2', '0'],
-        ['2x', '2']
+        ['2x', '2'],
+        ['x*2', '2']
     ],
     'power': [
         ['x^2', '2x'],
