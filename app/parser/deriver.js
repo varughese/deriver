@@ -137,24 +137,30 @@ function quotientRule(t) {
     num.l(loDHi);
     num.r(hiDLo);
 
-
-    if(num.left.right.val === 0) {
-        num = num.right;
-    }
-    if(num.right.right.val === 0) {
-        num = num.left;
-    }
-    
     if(TreePattern.eq(loDHi, TreePattern.NUM) && TreePattern.eq(hiDLo, TreePattern.NUM)) {
         num = loDHi.val - hiDLo.val;
     }
 
+    var zeroPattern = new Tree('*');
+    zeroPattern.l(TreePattern.ANY);
+    zeroPattern.r(0);
+
+    if(num.left.equals(zeroPattern) || num.left.equals(zeroPattern.switch())) {
+        var r = new Tree("*");
+        r.l(-1);
+        r.r(num.right);
+        if(num.right.val === 1) {
+            num = new Tree(-1);
+        } else {
+            num = r;
+        }
+    }
+    if(num.right && (num.right.equals(zeroPattern) || num.right.equals(zeroPattern.switch()))) {
+        num = num.left;
+    }
+
     denom.l(lo);
     denom.r(2);
-
-    if(TreePattern.eq(lo.val, TreePattern.NUM)) {
-        denom = new Tree(lo.val * lo.val);
-    }
 
     res.l(num);
     res.r(denom);

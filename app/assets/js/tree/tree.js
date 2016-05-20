@@ -32,6 +32,7 @@ Tree.prototype.add = function(dir, val) {
     while(current[dir]) {
         current = current[dir];
     }
+
     if(val instanceof Tree) {
         current[dir] = val;
     } else {
@@ -72,6 +73,12 @@ Tree.prototype.clone = function() {
     }
 
     return clone;
+};
+
+Tree.prototype.switch = function() {
+    var temp = this.right;
+    this.right = this.left;
+    this.left = temp;
 };
 
 Tree.prototype.contains = function(target) {
