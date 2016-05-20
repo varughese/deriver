@@ -13,7 +13,7 @@ function parseParens(val) {
         list = [];
     if(lefts.length !== rights.length) throw "Mismatched Parentheses!";
 
-    // dope algorithm
+    // Dope algorithm
     for(var i=lefts.length-1; i>=0; i--) {
         var k = i;
         while(k>=0 && lefts[i] < rights[k]) {
@@ -27,22 +27,46 @@ function parseParens(val) {
 
 function cleanInput(val) {
     val = replaceNegatives(val.removeSpaces());
+    function sorter(a, b) {return a - b;}
 
-    var missingMultiply = [];
+    var missingMultiply = [],
+        missingParens = [];
+
+    Object.keys(TreePattern.__FUNCTIONS).map(function(fx) {
+        missingParens = missingParens.concat(val.findChar(fx).map(function(pos) {
+            return pos + fx.length;
+        }));
+    });
+
+    missingParens.sort(sorter);
+
+    function findOp(pos, str) {
+        return Math.min.apply(Math, TreePattern.checkParens.map(function(op) {
+            return pos + str.findChar(op)[0] || str.length + pos;
+        }));
+    }
+
+    for(var f=missingParens.length-1; f>=0; f--) {
+        var pos = missingParens[f],
+            end = findOp(pos, val.substring(missingParens[f]));
+
+        if(val[pos] !== '(') {
+            val = val.splice(pos, '(');
+            val = val.splice(end+1, ')');
+        }
+    }
 
     TreePattern.checkMultiply.map(function(n) {
         missingMultiply = missingMultiply.concat(val.findChar(n));
     });
 
-    missingMultiply.sort(function(a, b) {
-        return a - b;
-    });
+    missingMultiply.sort(sorter);
 
     for(var p=missingMultiply.length-1; p>=0; p--) {
-        var pos = missingMultiply[p],
-            token = val[pos-1];
+        var position = missingMultiply[p],
+            token = val[position-1];
         if(!isNaN(token) || ')x'.indexOf(token) > -1) {
-            val = val.splice(pos, '*');
+            val = val.splice(position, '*');
         }
     }
 

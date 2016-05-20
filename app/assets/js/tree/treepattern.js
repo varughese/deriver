@@ -64,9 +64,8 @@ for(var o in TreePattern.__OPS)
 for(var o in TreePattern.__FUNCTIONS)
     TreePattern.OPS[o] = TreePattern.__FUNCTIONS[o];
 
-TreePattern.checkMultiply = ['(', 'x'];
-for(var o in TreePattern.__FUNCTIONS)
-    TreePattern.checkMultiply.push(o);
+TreePattern.checkMultiply = ['(', 'x'].concat(Object.keys(TreePattern.__FUNCTIONS));
+TreePattern.checkParens = [')'].concat(Object.keys(TreePattern.__FUNCTIONS)).concat(Object.keys(TreePattern.__OPS));
 
 
 TreePattern.fns = {

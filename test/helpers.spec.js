@@ -31,10 +31,12 @@ describe("Helpers::", function() {
 
         it("Handles trig/logs/other functions", function() {
             var io = [
-                ['sinxcosx', 'sinx*cosx'],
-                ['3sinx+5sinx', '3*sinx+5*sinx'],
-                ['10arcsinx-8(4sinx)', '10*arcsinx-8*(4*sinx)'],
-                ['8cosx', '8*cosx']
+                ['sinxcosx', 'sin(x)*cos(x)'],
+                ['(sinx)(cosx)', '(sin(x))*(cos(x))'],
+                ['3sinx+5sinx', '3*sin(x)+5*sin(x)'],
+                ['10arcsinx-8(4sinx)', '10*arcsin(x)-8*(4*sin(x))'],
+                ['8cosx', '8*cos(x)'],
+                ['8cos2x+ln5x', '8*cos(2*x)+ln(5*x)']
             ];
 
             for(var arr in io) {
@@ -45,8 +47,8 @@ describe("Helpers::", function() {
         it("Logarithm Change of Base", function() {
             expect(cleanInput('log(4,6)')).toBe("ln(6)/ln(4)");
             expect(cleanInput('log(4,(x+3)+x)')).toBe("ln((x+3)+x)/ln(4)");
-            expect(cleanInput('log(x+2,x+2x-3(4x))-log(4,(x+3)+x+sinx)')).toBe("ln(x+2*x-3*(4*x))/ln(x+2)-ln((x+3)+x+sinx)/ln(4)");
-            expect(cleanInput('log(x+2(x-sinx), x+5)')).toBe("ln(x+5)/ln(x+2*(x-sinx))");
+            expect(cleanInput('log(x+2,x+2x-3(4x))-log(4,(x+3)+x+sinx)')).toBe("ln(x+2*x-3*(4*x))/ln(x+2)-ln((x+3)+x+sin(x))/ln(4)");
+            expect(cleanInput('log(x+2(x-sinx), x+5)')).toBe("ln(x+5)/ln(x+2*(x-sin(x)))");
         });
 
     });
