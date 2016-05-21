@@ -20,6 +20,7 @@ module.exports = function(config) {
         'app/assets/js/tree/tree.js',
         'app/parser/parser.js',
         'app/parser/deriver.js',
+        'app/parser/unparser.js',
         'test/mocks/*.mock.js',
         'test/*.spec.js'
     ],

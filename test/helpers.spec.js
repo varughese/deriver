@@ -52,4 +52,21 @@ describe("Helpers::", function() {
         });
 
     });
+
+    describe("Unparser", function() {
+        var io = [
+            ['2+3*5','2+3*5'],
+            ['(2+3)*5','(2+3)*5'],
+            ['5sinx','5sinx'],
+            ['9x+4(5x)','9x+4*5x']
+        ];
+
+        it("Correctly places Parentheses and *", function() {
+            for(var a in io) {
+                var input = io[a][0], output = io[a][1];
+                expect(unparse(parseInput(input))).toBe(output);
+            }
+        });
+
+    });
 });
