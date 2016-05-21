@@ -13,9 +13,12 @@ function unparse(tree) {
         left = '(' + unparse(tree.left) + ')';
     }
 
-    if(tree.val === '*' &&
-       typeof right === 'string' &&
-       ((right+"")[0] === 'x' || Object.keys(TreePattern.__FUNCTIONS).join('|').indexOf(right.substring(0,3)) > -1)) middle = '';
+    if(
+        tree.val === '*' &&
+        typeof right === 'string' &&
+        TreePattern.checkMultiply.join('|').indexOf(right[0]) > -1 //&&
+        // ((left+"").split("").reverse()[0] !== 'x' || (right+"")[0] === '(')
+    ) middle = '';
 
     return (left || '') + middle + right;
 }
