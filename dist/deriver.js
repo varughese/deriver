@@ -1,3 +1,4 @@
+// Source: src/deriver.js
 function derive(t) {
     if(!(t instanceof Tree)) t = parseInput(t);
 
@@ -249,6 +250,7 @@ function exponentialRule(t) {
     return chainRule(res, t.right);
 }
 
+// Source: src/parser.js
 function replaceNegatives(val){
     for(var i=0; i<val.length; i++){
         if(val.charAt(i)==='-' && (i===0 || "+*^/-(".indexOf(val.charAt(i-1))>-1)){
@@ -392,6 +394,7 @@ function parseInput(val) {
     return tree;
 }
 
+// Source: src/strings.js
 String.prototype.splice = function(start, newSubStr) {
     return this.slice(0, start) + newSubStr + this.slice(start);
 };
@@ -416,6 +419,7 @@ String.prototype.removeSpaces = function() {
     return this.trim().replace(/\s+/g, '');
 };
 
+// Source: src/tree.js
 function Tree(val) {
     this.val = !isNaN(val) ? Number(val) : val;
     this.left = false;
@@ -541,6 +545,7 @@ Tree.prototype.toFlatString = function() {
     return  left + "" + this.val + "" + right;
 };
 
+// Source: src/treepattern.js
 var TreePattern = {};
 
 
@@ -650,6 +655,7 @@ TreePattern.eq = function(val, pattern) {
     return val == pattern;
 };
 
+// Source: src/unparser.js
 function unparse(tree) {
     if(!tree.left && !tree.right) return tree.val;
 
@@ -674,3 +680,5 @@ function unparse(tree) {
 
     return (left || '') + middle + right;
 }
+
+//# sourceMappingURL=deriver.js.map

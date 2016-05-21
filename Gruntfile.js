@@ -4,6 +4,12 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     concat: {
+      options: {
+        sourceMap: true,
+        process: function(src, filepath) {
+          return '// Source: ' + filepath + '\n' + src;
+        },
+      },
       dist: {
         src: ['src/*.js'],
         dest: 'dist/<%= pkg.name %>.js'
