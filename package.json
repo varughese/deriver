@@ -20,7 +20,7 @@
   "scripts": {
     "build": "npm install && bower install && npm run open",
     "grunt": "grunt default",
-    "test": "npm run grunt && karma start  --single-run",
+    "test": "karma start  --single-run",
     "open": "start chrome __dirname+./app/index.html"
   },
   "repository": {
