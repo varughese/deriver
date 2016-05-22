@@ -19,7 +19,8 @@
   },
   "scripts": {
     "build": "npm install && bower install && npm run open",
-    "test": "karma start  --single-run",
+    "grunt": "grunt default",
+    "test": "npm run grunt && karma start  --single-run",
     "open": "start chrome __dirname+./app/index.html"
   },
   "repository": {

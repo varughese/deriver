@@ -11,12 +11,12 @@ treePatternRule.prototype.toString = function() {
 };
 
 var rules = {
-    ANY: "$$$",
-    NUM: "###",
-    OP: "&&&",
-    TRIG: ">>>",
-    MARKER: '@@@',
-    LOG: ',,,'
+    "$$$": "ANY",
+    "###": "NUM",
+    "&&&": "OP",
+    ">>>": "TRIG",
+    '@@@': "MARKER",
+    ',,,': "LOG"
 };
 for(var p in rules) {
     TreePattern[p] = new treePatternRule(rules[p]);
