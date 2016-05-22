@@ -19,7 +19,7 @@ var rules = {
     ',,,': "LOG"
 };
 for(var p in rules) {
-    TreePattern[p] = new treePatternRule(rules[p]);
+    TreePattern[rules[p]] = new treePatternRule(p);
 }
 
 var _defaults = {

@@ -385,7 +385,7 @@ function parseInput(val) {
         }
     }
     if(pos === undefined) {
-        if(val === '@@@') return new Tree(TreePattern.MARKER);
+        if(val.length === 3 && rules[val]) return new Tree(TreePattern[rules[val]]);
         return new Tree(val.replace(/~/, '-'));
     }
     var tree = new Tree(token);
@@ -393,6 +393,8 @@ function parseInput(val) {
     tree.right = parseInput(org.substring(pos+token.length));
     return tree;
 }
+
+// Source: src/simplifier.js
 
 // Source: src/strings.js
 String.prototype.splice = function(start, newSubStr) {
@@ -559,15 +561,15 @@ treePatternRule.prototype.toString = function() {
 };
 
 var rules = {
-    ANY: "$$$",
-    NUM: "###",
-    OP: "&&&",
-    TRIG: ">>>",
-    MARKER: '@@@',
-    LOG: ',,,'
+    "$$$": "ANY",
+    "###": "NUM",
+    "&&&": "OP",
+    ">>>": "TRIG",
+    '@@@': "MARKER",
+    ',,,': "LOG"
 };
 for(var p in rules) {
-    TreePattern[p] = new treePatternRule(rules[p]);
+    TreePattern[rules[p]] = new treePatternRule(p);
 }
 
 var _defaults = {
