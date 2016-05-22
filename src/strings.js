@@ -21,3 +21,4 @@ String.prototype.findChar = function(token) {
 String.prototype.removeSpaces = function() {
     return this.trim().replace(/\s+/g, '');
 };
+//TODO: dont change the string prototype

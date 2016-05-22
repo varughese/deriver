@@ -395,6 +395,25 @@ function parseInput(val) {
 }
 
 // Source: src/simplifier.js
+function simplify(tree) {
+    var __schemas = [parseInput('###*(###/$$$)')];
+    for(var s in __schemas) {
+        if(tree.equals(__schemas[s])) {
+            return fns[s](tree);
+        }
+    }
+}
+
+var fns = [
+    function(tree) {
+        var res = new Tree("/");
+
+        res.l(tree.left.val * tree.right.left.val);
+        res.r(tree.right);
+
+        return res;
+    }
+];
 
 // Source: src/strings.js
 String.prototype.splice = function(start, newSubStr) {
@@ -420,6 +439,7 @@ String.prototype.findChar = function(token) {
 String.prototype.removeSpaces = function() {
     return this.trim().replace(/\s+/g, '');
 };
+//TODO: dont change the string prototype
 
 // Source: src/tree.js
 function Tree(val) {
