@@ -15,13 +15,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-        // 'app/assets/js/strings.js',
-        // 'app/assets/js/tree/treepattern.js',
-        // 'app/assets/js/tree/tree.js',
-        // 'app/parser/parser.js',
-        // 'app/parser/deriver.js',
-        // 'app/parser/unparser.js',
-        'dist/deriver.min.js',
+        'src/*.js',
         'test/mocks/*.mock.js',
         'test/*.spec.js'
     ],
