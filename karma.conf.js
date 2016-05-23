@@ -15,7 +15,6 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-        'src/strings.js',
         'src/*.js',
         'test/mocks/*.mock.js',
         'test/*.spec.js'

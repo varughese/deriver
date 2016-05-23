@@ -20,5 +20,10 @@ function unparse(tree) {
         // ((left+"").split("").reverse()[0] !== 'x' || (right+"")[0] === '(')
     ) middle = '';
 
+    if(tree.val === 'abs') {
+        middle = '|';
+        right = right + '|';
+    }
+
     return (left || '') + middle + right;
 }
