@@ -1,24 +1,50 @@
-String.prototype.splice = function(start, newSubStr) {
-    return this.slice(0, start) + newSubStr + this.slice(start);
+__strings = {
+    splice: function(start, newSubStr) {
+        return this.slice(0, start) + newSubStr + this.slice(start);
+    },
+
+    cut: function (start, end) {
+        return this.substring(0, start) + this.substring(end+1);
+    },
+
+    replaceAt: function(index, char){
+        return this.substring(0,index) + char + this.substring(index+char.length);
+    },
+
+    findChar: function(token) {
+        var indices = [];
+        for(var i=0; i<this.length; i++)
+         if(this.substring(i, i+token.length) === token) indices.push(i);
+
+        return indices;
+    },
+
+    removeSpaces: function() {
+        return this.trim().replace(/\s+/g, '');
+    }
 };
 
-String.prototype.cut = function (start, end) {
-    return this.substring(0, start) + this.substring(end+1);
-};
-
-String.prototype.replaceAt=function(index, char){
-    return this.substring(0,index) + char + this.substring(index+char.length);
-};
-
-String.prototype.findChar = function(token) {
-    var indices = [];
-    for(var i=0; i<this.length; i++)
-     if(this.substring(i, i+token.length) === token) indices.push(i);
-
-    return indices;
-};
-
-String.prototype.removeSpaces = function() {
-    return this.trim().replace(/\s+/g, '');
-};
+// String.prototype.splice = function(start, newSubStr) {
+//     return this.slice(0, start) + newSubStr + this.slice(start);
+// };
+//
+// String.prototype.cut = function (start, end) {
+//     return this.substring(0, start) + this.substring(end+1);
+// };
+//
+// String.prototype.replaceAt=function(index, char){
+//     return this.substring(0,index) + char + this.substring(index+char.length);
+// };
+//
+// String.prototype.findChar = function(token) {
+//     var indices = [];
+//     for(var i=0; i<this.length; i++)
+//      if(this.substring(i, i+token.length) === token) indices.push(i);
+//
+//     return indices;
+// };
+//
+// String.prototype.removeSpaces = function() {
+//     return this.trim().replace(/\s+/g, '');
+// };
 //TODO: dont change the string prototype

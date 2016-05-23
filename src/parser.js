@@ -1,15 +1,15 @@
 function replaceNegatives(val){
     for(var i=0; i<val.length; i++){
         if(val.charAt(i)==='-' && (i===0 || "+*^/-(".indexOf(val.charAt(i-1))>-1)){
-            val = val.replaceAt(i,'~');
+            val = __strings.replaceAt.call(val, i,'~');
         }
     }
     return val;
 }
 
 function parseParens(val) {
-    var lefts = val.findChar('('),
-        rights = val.findChar(')'),
+    var lefts = __strings.findChar.call(val,'('),
+        rights = __strings.findChar.call(val,')'),
         list = [];
     if(lefts.length !== rights.length) throw "Mismatched Parentheses!";
 
@@ -26,14 +26,14 @@ function parseParens(val) {
 }
 
 function cleanInput(val) {
-    val = replaceNegatives(val.removeSpaces());
+    val = replaceNegatives(__strings.removeSpaces.call(val));
     function sorter(a, b) {return a - b;}
 
     var missingMultiply = [],
         missingParens = [];
 
     Object.keys(TreePattern.__FUNCTIONS).map(function(fx) {
-        missingParens = missingParens.concat(val.findChar(fx).map(function(pos) {
+        missingParens = missingParens.concat(__strings.findChar.call(val,fx).map(function(pos) {
             return pos + fx.length;
         }));
     });
@@ -42,7 +42,7 @@ function cleanInput(val) {
 
     function findOp(pos, str) {
         return Math.min.apply(Math, TreePattern.checkParens.map(function(op) {
-            return pos + str.findChar(op)[0] || str.length + pos;
+            return pos + __strings.findChar.call(str, op)[0] || str.length + pos;
         }));
     }
 
@@ -51,13 +51,13 @@ function cleanInput(val) {
             end = findOp(pos, val.substring(missingParens[f]));
 
         if(val[pos] !== '(') {
-            val = val.splice(pos, '(');
-            val = val.splice(end+1, ')');
+            val = __strings.splice.call(val,pos, '(');
+            val = __strings.splice.call(val,end+1, ')');
         }
     }
 
     TreePattern.checkMultiply.map(function(n) {
-        missingMultiply = missingMultiply.concat(val.findChar(n));
+        missingMultiply = missingMultiply.concat(__strings.findChar.call(val,n));
     });
 
     missingMultiply.sort(sorter);
@@ -66,11 +66,11 @@ function cleanInput(val) {
         var position = missingMultiply[p],
             token = val[position-1];
         if(!isNaN(token) || ')x'.indexOf(token) > -1) {
-            val = val.splice(position, '*');
+            val = __strings.splice.call(val,position, '*');
         }
     }
 
-    var logs = val.findChar('log');
+    var logs = __strings.findChar.call(val,'log');
     for(var l=logs.length-1; l>=0; l--) {
         var logPos = logs[l],
             parens = parseParens(val),
@@ -88,7 +88,7 @@ function cleanInput(val) {
 
         arg = val.substring(comma+1, endParen);
         var replace = "ln(" + arg + ")/ln(" + base + ")";
-        val = val.cut(logPos, endParen).splice(logPos, replace);
+        val = __strings.splice.call(__strings.cut.call(val, logPos, endParen), logPos, replace);
     }
 
     return val;
