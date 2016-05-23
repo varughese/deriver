@@ -16,7 +16,7 @@ function draw() {
 function drawCircle(x, y, text) {
     var saved = ctx.fillStyle;
     var circle = new Path2D();
-    circle.arc(x, y, 25, 0, 2*Math.PI);
+    circle.arc(x, y, 20, 0, 2*Math.PI);
     ctx.fill(circle);
     ctx.font="15px Arial";
     ctx.fillStyle = 'white';
@@ -24,4 +24,19 @@ function drawCircle(x, y, text) {
     ctx.textAlign = "center";
     ctx.fillText(text, x, y);
     ctx.fillStyle = saved;
+}
+
+function pickColor(val) {
+    if(Object.keys(TreePattern.__OPS).indexOf(val) > -1) ctx.fillStyle = 'blue';
+    else if(Object.keys(TreePattern.__FUNCTIONS).indexOf(val) > -1) ctx.fillStyle = 'red';
+    else ctx.fillStyle = 'black';
+}
+
+function drawTree(t, x, y) {
+    if(!x) x = 200;
+    if(!y) y = 25;
+    pickColor(t.val);
+    drawCircle(x, y, t.val);
+    if(t.left) drawTree(t.left, x-80, y+80);
+    if(t.right) drawTree(t.right, x+80, y+80);
 }
