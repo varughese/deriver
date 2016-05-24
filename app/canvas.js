@@ -18,7 +18,7 @@ function drawCircle(x, y, text) {
     ctx.lineWidth=2;
     var saved = ctx.fillStyle;
     var circle = new Path2D();
-    circle.arc(x, y, 20, 0, 2*Math.PI);
+    circle.arc(x, y, 14, 0, 2*Math.PI);
     ctx.fill(circle);
     ctx.fillStyle = 'black';
     ctx.stroke(circle);
@@ -40,18 +40,25 @@ function pickColor(val) {
 function drawConnector(x, y, dir) {
     if(dir === 'left' || dir <= 0) dir = -1;
     else dir = 1;
-
-    ctx.fillStyle = 'black';
     ctx.beginPath();
-    var change = dir * 20/Math.sqrt(2);
-    var origin = [x+change,y+Math.abs(change)];
-    ctx.moveTo(origin[0], origin[1]);
-    ctx.lineTo(origin[0]+(dir*deltaX)-(dir*20), origin[1]+deltaY-Math.abs(change)-20);
-    ctx.stroke();
+    // ctx.fillStyle = 'black';
+    // ctx.beginPath();
+    // var change = dir * 20/Math.sqrt(2);
+    // var origin = [x+change,y+Math.abs(change)];
+    // ctx.moveTo(origin[0], origin[1]);
+    // ctx.lineTo(origin[0]+(dir*deltaX)-(dir*20), origin[1]+deltaY-Math.abs(change)-20);
+    // ctx.stroke();
+
     // ctx.moveTo(x, y+20);
     // ctx.lineTo(x+(dir * deltaX), y+deltaY-20);
     // ctx.lineWidth=2;
     // ctx.stroke();
+
+    ctx.moveTo(x, y);
+    ctx.lineTo(x+(dir * deltaX), y+deltaY);
+    ctx.lineWidth=2;
+    ctx.stroke();
+    ctx.closePath();
 }
 
 var deltaX = 120;
@@ -65,16 +72,17 @@ function drawTree(t, x, y) {
         deltaY = 80;
         clear();
     }
-    pickColor(t.val);
-    drawCircle(x, y, t.val);
     deltaX/=0.26*Math.log(y);
     if(t.left) {
+        drawConnector(x, y, -1);
         drawTree(t.left, x-deltaX, y+deltaY);
-        drawConnector(x, y, -1); }
-    if(t.right) {
-        drawTree(t.right, x+deltaX, y+deltaY);
-        drawConnector(x, y, 1);
     }
+    if(t.right) {
+        drawConnector(x, y, 1);
+        drawTree(t.right, x+deltaX, y+deltaY);
+    }
+    pickColor(t.val);
+    drawCircle(x, y, t.val);
     deltaX*=0.26*Math.log(y);
 }
 
