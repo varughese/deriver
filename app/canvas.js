@@ -19,18 +19,21 @@ function drawCircle(x, y, text) {
     var circle = new Path2D();
     circle.arc(x, y, 20, 0, 2*Math.PI);
     ctx.fill(circle);
+    ctx.fillStyle = 'black';
+    ctx.stroke(circle);
     ctx.font="15px Arial";
     ctx.fillStyle = 'white';
     ctx.textBaseline = 'middle';
     ctx.textAlign = "center";
     ctx.fillText(text, x, y);
+    ctx.stroke();
     ctx.fillStyle = saved;
 }
 
 function pickColor(val) {
-    if(Object.keys(TreePattern.__OPS).indexOf(val) > -1) ctx.fillStyle = 'blue';
-    else if(Object.keys(TreePattern.__FUNCTIONS).indexOf(val) > -1) ctx.fillStyle = 'red';
-    else ctx.fillStyle = 'black';
+    if(Object.keys(TreePattern.__OPS).indexOf(val) > -1) ctx.fillStyle = 'firebrick';
+    else if(Object.keys(TreePattern.__FUNCTIONS).indexOf(val) > -1) ctx.fillStyle = '#8C00C3';
+    else ctx.fillStyle = '#676767';
 }
 
 function drawConnector(x, y, dir) {
