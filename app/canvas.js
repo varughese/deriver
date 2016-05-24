@@ -15,6 +15,7 @@ function draw() {
 }
 
 function drawCircle(x, y, text) {
+    ctx.lineWidth=2;
     var saved = ctx.fillStyle;
     var circle = new Path2D();
     circle.arc(x, y, 20, 0, 2*Math.PI);
@@ -47,6 +48,10 @@ function drawConnector(x, y, dir) {
     ctx.moveTo(origin[0], origin[1]);
     ctx.lineTo(origin[0]+(dir*deltaX)-(dir*20), origin[1]+deltaY-Math.abs(change)-20);
     ctx.stroke();
+    // ctx.moveTo(x, y+20);
+    // ctx.lineTo(x+(dir * deltaX), y+deltaY-20);
+    // ctx.lineWidth=2;
+    // ctx.stroke();
 }
 
 var deltaX = 120;
