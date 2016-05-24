@@ -27,7 +27,6 @@ function drawCircle(x, y, text) {
     ctx.textBaseline = 'middle';
     ctx.textAlign = "center";
     ctx.fillText(text, x, y);
-    ctx.stroke();
     ctx.fillStyle = saved;
 }
 
