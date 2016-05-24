@@ -1,0 +1,37 @@
+.history-item {
+    padding: 20px 30px;
+    background: #F7F7F7;
+    margin: 10px;
+    position: relative;
+}
+
+.history-item:hover{
+    cursor: pointer;
+}
+
+.history-item:hover > .glyphicon-remove {
+    /* when you hover over the history item, you can change the elements below it */
+    display: inline-block;
+}
+
+span.glyphicon-remove{
+    color: red;
+    display: none;
+    position: absolute; /*http://learnlayout.com/position.html*/
+    left: 8px;
+    top: 50%; /* centers it half way */
+    margin-top: -7px; /* the glyph is 14px tall, so to make it exactly center, I bring it up 7 px */
+}
+
+span.glyphicon-remove:hover{
+    color: darkred;
+}
+
+#real-time-input{
+    visibility: visible;
+}
+
+canvas {
+    display: block;
+    margin: 0 auto;
+}
