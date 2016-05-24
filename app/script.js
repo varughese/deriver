@@ -32,6 +32,7 @@ $(document).ready(function(){
     console.log("Converted to Tree\n" +val);
     derived = derive(val);
     console.log("Derived\n" + derived);
+    drawTree(derived);
     // storage.add returns a timestamp, which is like the 'ID' of that particular item
   });
 

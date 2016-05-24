@@ -30,3 +30,8 @@ span.glyphicon-remove:hover{
 #real-time-input{
     visibility: visible;
 }
+
+canvas {
+    display: block;
+    margin: 0 auto;
+}
