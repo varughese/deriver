@@ -34,6 +34,7 @@ function drawCircle(x, y, text) {
 function pickColor(val) {
     if(Object.keys(TreePattern.__OPS).indexOf(val) > -1) ctx.fillStyle = 'firebrick';
     else if(Object.keys(TreePattern.__FUNCTIONS).indexOf(val) > -1) ctx.fillStyle = '#8C00C3';
+    else if(val === 'x') ctx.fillStyle = '#557CD6';
     else ctx.fillStyle = '#676767';
 }
 
