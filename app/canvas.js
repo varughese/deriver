@@ -46,20 +46,20 @@ function drawConnector(x, y, dir) {
     ctx.stroke();
 }
 
-var deltaX = 90;
+var deltaX = 120;
 var deltaY = 80;
 
 function drawTree(t, x, y) {
     if(!x || !y) {
         x = canvas.width/2;
         y = 25;
-        deltaX = 90;
+        deltaX = 120;
         deltaY = 80;
         clear();
     }
     pickColor(t.val);
     drawCircle(x, y, t.val);
-    deltaX/=.3*Math.log(y);
+    deltaX/=0.26*Math.log(y);
     if(t.left) {
         drawTree(t.left, x-deltaX, y+deltaY);
         drawConnector(x, y, -1); }
@@ -67,5 +67,7 @@ function drawTree(t, x, y) {
         drawTree(t.right, x+deltaX, y+deltaY);
         drawConnector(x, y, 1);
     }
-    deltaX*=.3*Math.log(y);
+    deltaX*=0.26*Math.log(y);
 }
+
+drawTree(derive("4sinx+arcsin(x^3)"))
