@@ -7,8 +7,6 @@ function clear() {
     ctx.fillStyle = 'white';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = saved;
-    canvas = document.getElementById('canvas');
-    ctx = canvas.getContext('2d');
 }
 
 function draw() {
