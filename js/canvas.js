@@ -1,4 +1,4 @@
-$('body').append('<canvas width=\'870\' height=\'800\'></canvas');
+$('body').append('<canvas id=\'canvas\' width=\'870\' height=\'800\'></canvas');
 var canvas = $('canvas')[0],
     ctx = canvas.getContext('2d');
 
@@ -7,6 +7,8 @@ function clear() {
     ctx.fillStyle = 'white';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = saved;
+    canvas = document.getElementById('canvas');
+    ctx = canvas.getContext('2d');
 }
 
 function draw() {
