@@ -6,13 +6,19 @@
     <link rel="stylesheet" href="lib/css/bootstrap.css">
     <link rel="stylesheet" href="style.css"/>
     <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
-    <div class="form-group">
-        <label for="input" class="">Input</label>
-            <input class="form-control" type="text" id="input" />
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="input" class="">Input</label>
+                <input class="form-control" type="text" id="input" />
+            </div>
+            <button class="btn btn-default" id="submit">Submit</button>
         </div>
-    <button class="btn btn-default" id="submit">Submit</button>
+    </div>
+
     <div id="real-time-input"></div>
     <div class="history">
 
