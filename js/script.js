@@ -13,7 +13,7 @@ $(document).ready(function(){
 
     $("#input").bind("keyup change", function(){
         $("#real-time-input").css("visibility", "hidden");
-        $("#real-time-input").html("<div id='buffer'>\\("+$(this).val()+"\\)"+"<div>");
+        $("#real-time-input").html("<div id='buffer'>\\("+$(this).val()+"\\)"+"</div>");
         MathJax.Hub.Queue(
             ["Typeset",MathJax.Hub],
             MathJax.Callback.Delay(250, [function() {
@@ -31,6 +31,10 @@ $(document).ready(function(){
     val = parseInput(cleanInput(val));
     console.log("Converted to Tree\n" +val);
     derived = derive(val);
+
+    var derivedString = unparse(derived);
+    $("#real-time-input").append("<div class='derived'>Derived: \\( " + derivedString + " \\)</div>");
+
     console.log("Derived\n" + derived);
     drawTree(derived);
     // storage.add returns a timestamp, which is like the 'ID' of that particular item
