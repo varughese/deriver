@@ -1,4 +1,4 @@
-$('body').append('<canvas width=\'400\' height=\'800\'></canvas');
+$('body').append('<canvas width=\'870\' height=\'800\'></canvas');
 var canvas = $('canvas')[0],
     ctx = canvas.getContext('2d');
 
