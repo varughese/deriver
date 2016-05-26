@@ -1,8 +1,10 @@
-var val, powerruled;
+var val, powerruled, counter = 0;
 
 function appendHistory(v) {
+    counter++;
+    if(counter>3) $(".history .history-item").last().remove();
     // you gonna have to change this function so you can pass in ID that identifies it, and add that ID as an attribute to this element
-    $(".history").append("<div class='history-item'><span class='glyphicon glyphicon-remove'></span>\\("+v+"\\)</div>");
+    $(".history").prepend("<div class='history-item'><span class='glyphicon glyphicon-remove'></span>"+v+"</div>");
 }
 
 
