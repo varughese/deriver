@@ -26,7 +26,7 @@ function parseParens(val) {
 }
 
 function cleanInput(val) {
-    val = replaceNegatives(__strings.removeSpaces.call(val));
+    val = replaceNegatives(__strings.removeSpaces.call(val)).toLowerCase();
     function sorter(a, b) {return a - b;}
 
     var missingMultiply = [],
