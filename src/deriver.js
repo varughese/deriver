@@ -88,7 +88,8 @@ function constantRule(t) {
 
 function powerRule(t) {
     var tree = t.clone(),
-        res = new Tree("*");
+        res = new Tree("*"),
+        innerFx = t.left.clone();
 
     if(TreePattern.eq(tree.right.val, TreePattern.NUM)) {
         var c = tree.right.val--;
@@ -103,7 +104,7 @@ function powerRule(t) {
         res.r(tree);
     }
 
-    return chainRule(res, tree.left);
+    return chainRule(res, innerFx);
 }
 
 function productRule(t) {
