@@ -89,7 +89,8 @@ function constantRule(t) {
 
 function powerRule(t) {
     var tree = t.clone(),
-        res = new Tree("*");
+        res = new Tree("*"),
+        innerFx = t.left.clone();
 
     if(TreePattern.eq(tree.right.val, TreePattern.NUM)) {
         var c = tree.right.val--;
@@ -104,7 +105,7 @@ function powerRule(t) {
         res.r(tree);
     }
 
-    return chainRule(res, tree.left);
+    return chainRule(res, innerFx);
 }
 
 function productRule(t) {
@@ -254,15 +255,15 @@ function exponentialRule(t) {
 function replaceNegatives(val){
     for(var i=0; i<val.length; i++){
         if(val.charAt(i)==='-' && (i===0 || "+*^/-(".indexOf(val.charAt(i-1))>-1)){
-            val = val.replaceAt(i,'~');
+            val = __strings.replaceAt.call(val, i,'~');
         }
     }
     return val;
 }
 
 function parseParens(val) {
-    var lefts = val.findChar('('),
-        rights = val.findChar(')'),
+    var lefts = __strings.findChar.call(val,'('),
+        rights = __strings.findChar.call(val,')'),
         list = [];
     if(lefts.length !== rights.length) throw "Mismatched Parentheses!";
 
@@ -279,14 +280,14 @@ function parseParens(val) {
 }
 
 function cleanInput(val) {
-    val = replaceNegatives(val.removeSpaces());
+    val = replaceNegatives(__strings.removeSpaces.call(val)).toLowerCase();
     function sorter(a, b) {return a - b;}
 
     var missingMultiply = [],
         missingParens = [];
 
     Object.keys(TreePattern.__FUNCTIONS).map(function(fx) {
-        missingParens = missingParens.concat(val.findChar(fx).map(function(pos) {
+        missingParens = missingParens.concat(__strings.findChar.call(val,fx).map(function(pos) {
             return pos + fx.length;
         }));
     });
@@ -295,7 +296,7 @@ function cleanInput(val) {
 
     function findOp(pos, str) {
         return Math.min.apply(Math, TreePattern.checkParens.map(function(op) {
-            return pos + str.findChar(op)[0] || str.length + pos;
+            return pos + __strings.findChar.call(str, op)[0] || str.length + pos;
         }));
     }
 
@@ -304,13 +305,13 @@ function cleanInput(val) {
             end = findOp(pos, val.substring(missingParens[f]));
 
         if(val[pos] !== '(') {
-            val = val.splice(pos, '(');
-            val = val.splice(end+1, ')');
+            val = __strings.splice.call(val,pos, '(');
+            val = __strings.splice.call(val,end+1, ')');
         }
     }
 
     TreePattern.checkMultiply.map(function(n) {
-        missingMultiply = missingMultiply.concat(val.findChar(n));
+        missingMultiply = missingMultiply.concat(__strings.findChar.call(val,n));
     });
 
     missingMultiply.sort(sorter);
@@ -319,11 +320,11 @@ function cleanInput(val) {
         var position = missingMultiply[p],
             token = val[position-1];
         if(!isNaN(token) || ')x'.indexOf(token) > -1) {
-            val = val.splice(position, '*');
+            val = __strings.splice.call(val,position, '*');
         }
     }
 
-    var logs = val.findChar('log');
+    var logs = __strings.findChar.call(val,'log');
     for(var l=logs.length-1; l>=0; l--) {
         var logPos = logs[l],
             parens = parseParens(val),
@@ -341,7 +342,7 @@ function cleanInput(val) {
 
         arg = val.substring(comma+1, endParen);
         var replace = "ln(" + arg + ")/ln(" + base + ")";
-        val = val.cut(logPos, endParen).splice(logPos, replace);
+        val = __strings.splice.call(__strings.cut.call(val, logPos, endParen), logPos, replace);
     }
 
     return val;
@@ -395,13 +396,16 @@ function parseInput(val) {
 }
 
 // Source: src/simplifier.js
-function simplify(tree) {
-    var __schemas = [parseInput('###*(###/$$$)')];
+function simplify(t) {
+    var tree = t.clone();
+    var res = tree;
+    var __schemas = [parseInput('###*(###/$$$)'), parseInput('###*(###*$$$)')];
     for(var s in __schemas) {
         if(tree.equals(__schemas[s])) {
-            return fns[s](tree);
+            res = simplify(fns[s](tree));
         }
     }
+    return res;
 }
 
 var fns = [
@@ -409,36 +413,69 @@ var fns = [
         var res = new Tree("/");
 
         res.l(tree.left.val * tree.right.left.val);
-        res.r(tree.right);
+        res.r(tree.right.right);
+
+        return res;
+    },
+    function(tree) {
+        var res = new Tree("*");
+        res.l(tree.left.val * tree.right.left.val);
+        res.r(tree.right.right);
 
         return res;
     }
 ];
 
 // Source: src/strings.js
-String.prototype.splice = function(start, newSubStr) {
-    return this.slice(0, start) + newSubStr + this.slice(start);
+__strings = {
+    splice: function(start, newSubStr) {
+        return this.slice(0, start) + newSubStr + this.slice(start);
+    },
+
+    cut: function (start, end) {
+        return this.substring(0, start) + this.substring(end+1);
+    },
+
+    replaceAt: function(index, char){
+        return this.substring(0,index) + char + this.substring(index+char.length);
+    },
+
+    findChar: function(token) {
+        var indices = [];
+        for(var i=0; i<this.length; i++)
+         if(this.substring(i, i+token.length) === token) indices.push(i);
+
+        return indices;
+    },
+
+    removeSpaces: function() {
+        return this.trim().replace(/\s+/g, '');
+    }
 };
 
-String.prototype.cut = function (start, end) {
-    return this.substring(0, start) + this.substring(end+1);
-};
-
-String.prototype.replaceAt=function(index, char){
-    return this.substring(0,index) + char + this.substring(index+char.length);
-};
-
-String.prototype.findChar = function(token) {
-    var indices = [];
-    for(var i=0; i<this.length; i++)
-     if(this.substring(i, i+token.length) === token) indices.push(i);
-
-    return indices;
-};
-
-String.prototype.removeSpaces = function() {
-    return this.trim().replace(/\s+/g, '');
-};
+// String.prototype.splice = function(start, newSubStr) {
+//     return this.slice(0, start) + newSubStr + this.slice(start);
+// };
+//
+// String.prototype.cut = function (start, end) {
+//     return this.substring(0, start) + this.substring(end+1);
+// };
+//
+// String.prototype.replaceAt=function(index, char){
+//     return this.substring(0,index) + char + this.substring(index+char.length);
+// };
+//
+// String.prototype.findChar = function(token) {
+//     var indices = [];
+//     for(var i=0; i<this.length; i++)
+//      if(this.substring(i, i+token.length) === token) indices.push(i);
+//
+//     return indices;
+// };
+//
+// String.prototype.removeSpaces = function() {
+//     return this.trim().replace(/\s+/g, '');
+// };
 //TODO: dont change the string prototype
 
 // Source: src/tree.js
@@ -699,6 +736,11 @@ function unparse(tree) {
         TreePattern.checkMultiply.join('|').indexOf(right[0]) > -1 //&&
         // ((left+"").split("").reverse()[0] !== 'x' || (right+"")[0] === '(')
     ) middle = '';
+
+    if(tree.val === 'abs') {
+        middle = '|';
+        right = right + '|';
+    }
 
     return (left || '') + middle + right;
 }
