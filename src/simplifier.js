@@ -36,6 +36,12 @@ var schemaFns = {
         res.r(simplify(tree.right.right));
         return res;
     },
+    "###*($$$*###)": function (tree) {
+        var res = new Tree("*");
+        res.l(tree.left.val * tree.right.right.val);
+        res.r(simplify(tree.right.left));
+        return res;
+    },
     "x^1": function(tree) {
         return new Tree("x");
     },
@@ -60,5 +66,14 @@ var schemaFns = {
             return res;
         }
         //TODO this cant return x^1 or x^0
+    },
+    "(x^###)/(x^###)": function(tree) {
+        var res = new Tree("/"),
+            st = new Tree("*");
+
+        st.l(1); st.r(tree.left);
+        res.l(st);
+        res.r(tree.right);
+        return this["($$$*(x^###))/(x^###)"](res);
     }
 };
