@@ -19,6 +19,17 @@ function simplify(t) {
         if(clean) break;
     }
 
+    if(res.val === '*' || res.val === '+') {
+        if(!simplify(res.left).equals(res.left)) {
+            res.left = simplify(res.left);
+            res = simplify(res);
+        }
+        if(!simplify(res.right).equals(res.right)) {
+            res.right = simplify(res.right);
+            res = simplify(res);
+        }
+    }
+
     return res;
 }
 
