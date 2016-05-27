@@ -8,6 +8,12 @@ function simplify(t) {
             if(res.equals(parseInput(f))) {
                 res = simplify(schemaFns[f](res));
                 clean = false;
+            } else if(res.val === '+' || res.val === '*') {
+                if(res.equals(parseInput(f).switch())) {
+                    res.switch();
+                    res = simplify(schemaFns[f](res));
+                    clean = false;
+                }
             }
         }
         if(clean) break;
@@ -15,6 +21,7 @@ function simplify(t) {
 
     return res;
 }
+
 
 var schemaFns = {
     "###*(###/$$$)": function (tree) {
