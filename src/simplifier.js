@@ -1,6 +1,7 @@
 function simplifyHelper(t) {
     var tree = t.clone();
     var res = tree;
+    console.log(res+"");
 
     if (t.left && t.left.equals(t.right)) {
         res = simplifyEquivalent(t);
@@ -119,6 +120,10 @@ var schemaFns = {
             res.l(tree.left.left);
             return res;
         }
+    },
+    "(###*x)^(###)":function(tree) {
+        tree.left.left.val = Math.pow(tree.left.left.val, tree.right.val);
+        return tree.left;
     },
     "(x^###)/(x^###)": function(tree) {
         var res = new Tree("/"),

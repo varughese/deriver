@@ -207,11 +207,11 @@ function trigRules(t) {
             'csc': parseInput('-1*csc@@@*cot@@@'),
             'sec': parseInput('sec@@@*tan@@@'),
             'cot': parseInput('-1*(csc@@@)^2'),
-            'arcsin': parseInput('1/((1-@@@^2)^(1/2))'),
-            'arccos': parseInput('-1/((1-@@@^2)^(1/2))'),
+            'arcsin': parseInput('1/(sqrt(1-@@@^2))'),
+            'arccos': parseInput('-1/(sqrt(1-@@@^2))'),
             'arctan': parseInput('1/(1+(@@@^2))'),
-            'arccsc': parseInput('-1/(abs(@@@)*(@@@^2-1))'),
-            'arcsec': parseInput('1/(abs(@@@)*(@@@^2-1))'),
+            'arccsc': parseInput('-1/(abs(@@@)*sqrt(@@@^2-1))'),
+            'arcsec': parseInput('1/(abs(@@@)*sqrt(@@@^2-1))'),
             'arccot': parseInput('-1/(1+@@@^2)')
         };
 
