@@ -1,4 +1,4 @@
-function simplify(t) {
+function simplifyHelper(t) {
     var tree = t.clone();
     var res = tree;
 
@@ -6,12 +6,12 @@ function simplify(t) {
         var clean = true;
         for(var f in schemaFns) {
             if(res.equals(parseInput(f))) {
-                res = simplify(schemaFns[f](res));
+                res = simplifyHelper(schemaFns[f](res));
                 clean = false;
             } else if(res.val === '+' || res.val === '*') {
                 if(res.equals(parseInput(f).switch())) {
                     res.switch();
-                    res = simplify(schemaFns[f](res));
+                    res = simplifyHelper(schemaFns[f](res));
                     clean = false;
                 }
             }
@@ -19,18 +19,24 @@ function simplify(t) {
         if(clean) break;
     }
 
-    if(res.val === '*' || res.val === '+') {
-        if(!simplify(res.left).equals(res.left)) {
-            res.left = simplify(res.left);
-            res = simplify(res);
-        }
-        if(!simplify(res.right).equals(res.right)) {
-            res.right = simplify(res.right);
-            res = simplify(res);
-        }
-    }
-
     return res;
+}
+
+function simplify(t) {
+    if(!t.left && !t.right) return t;
+    var s = simplifyHelper(t);
+    if(s.equals(t)) {
+        if(t.left) {
+            t.left = simplify(t.left);
+        }
+        if(t.right) {
+            t.right = simplify(t.right);
+        }
+        return simplifyHelper(t);
+    } else {
+        if(simplify(s).equals(s)) return s;
+        else return simplify(s);
+    }
 }
 
 
@@ -38,20 +44,29 @@ var schemaFns = {
     "###*(###/$$$)": function (tree) {
         var res = new Tree("/");
         res.l(tree.left.val * tree.right.left.val);
-        res.r(simplify(tree.right.right));
+        res.r(simplifyHelper(tree.right.right));
         return res;
     },
     "###*(###*$$$)": function (tree) {
         var res = new Tree("*");
         res.l(tree.left.val * tree.right.left.val);
-        res.r(simplify(tree.right.right));
+        res.r(simplifyHelper(tree.right.right));
         return res;
     },
     "###*($$$*###)": function (tree) {
         var res = new Tree("*");
         res.l(tree.left.val * tree.right.right.val);
-        res.r(simplify(tree.right.left));
+        res.r(simplifyHelper(tree.right.left));
         return res;
+    },
+    "###*###": function(tree) {
+        return new Tree(tree.left.val * tree.right.val);
+    },
+    "###+###": function(tree) {
+        return new Tree(tree.left.val + tree.right.val);
+    },
+    "###-###": function(tree) {
+        return new Tree(tree.left.val - tree.right.val);
     },
     "x^1": function(tree) {
         return new Tree("x");
@@ -76,7 +91,6 @@ var schemaFns = {
             res.l(tree.left.left);
             return res;
         }
-        //TODO this cant return x^1 or x^0
     },
     "(x^###)/(x^###)": function(tree) {
         var res = new Tree("/"),
