@@ -50,8 +50,8 @@ function simplify(t) {
         }
         return simplifyHelper(t);
     } else {
-        if (simplify(s).equals(s)) return s;
-        else return simplify(s);
+        if(simplify(s.clone()).equals(s)) return s;
+        else return simplify(simplify(s));
     }
 }
 
@@ -129,9 +129,6 @@ var schemaFns = {
         res.r(tree.right);
         return this["($$$*(x^###))/(x^###)"](res);
     },
-    "-1*###": function(tree) {
-        return new Tree(-1 * tree.right.val);
-    },
     "$$$-(-1*$$$)": function(tree) {
         tree.val = "+";
         tree.right = tree.right.right;
@@ -153,7 +150,8 @@ var schemaFns = {
         var res = new Tree("*");
         res.l(tree.left);
         res.r("^");
-        res.right.left = new Tree(trigIdentities.reciprocals[tree.right.left.val]);
+        res.right.left = tree.right.left;
+        res.right.left.val = trigIdentities.reciprocals[tree.right.left.val];
         res.right.right = degree;
         return res;
     }
