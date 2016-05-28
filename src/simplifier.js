@@ -2,68 +2,66 @@ function simplifyHelper(t) {
     var tree = t.clone();
     var res = tree;
 
-    while(true) {
-        var clean = true;
-        for(var f in schemaFns) {
-            var parsed = parseInput(f);
-            if(res.val === parsed.val) {
-                if(res.equals(parsed)) {
+
+    for (var f in schemaFns) {
+        var parsed = parseInput(f);
+        if (res.val === parsed.val) {
+            if (res.equals(parsed)) {
+                res = schemaFns[f](res);
+                break;
+            } else if (res.val === '+' || res.val === '*') {
+                if (res.equals(parsed.switch())) {
+                    res.switch();
                     res = schemaFns[f](res);
-                    clean = false;
-                } else if(res.val === '+' || res.val === '*') {
-                    if(res.equals(parsed.switch())) {
-                        res.switch();
-                        res = schemaFns[f](res);
-                        clean = false;
-                    } else if(res.equals(parseInput("$$$*###") || res.equals(parseInput("$$$*###")))) {
-                        //TODO perhaps factor this out into own simplifer function
-                        res.switch();
-                        clean = false;
-                    }
+                    break;
+                } else if (res.equals(parseInput("$$$*###") || res.equals(parseInput("$$$*###")))) {
+                    //TODO perhaps factor this out into own simplifer function
+                    res.switch();
+                    break;
                 }
             }
         }
-        if(clean) break;
+
     }
 
     return res;
 }
 
 function simplify(t) {
-    if(!t.left && !t.right) return t;
+    if (!t.left && !t.right) return t;
     var s = simplifyHelper(t);
-    if(s.equals(t)) {
-        if(t.left) {
+    if (s.equals(t)) {
+        if (t.left) {
             t.left = simplify(t.left);
         }
-        if(t.right) {
+        if (t.right) {
             t.right = simplify(t.right);
         }
-        if(t.left && t.left.equals(t.right)) {
+        if (t.left && t.left.equals(t.right)) {
             return simplifyEquivalent(t);
         }
         return simplifyHelper(t);
     } else {
-        if(simplify(s).equals(s)) return s;
+        if (simplify(s).equals(s)) return s;
         else return simplify(s);
     }
 }
 
 
 var schemaFns = {
-    "###*(###/$$$)": function (tree) {
+    "###*(###/$$$)": function(tree) {
         var res = new Tree("/");
         res.l(tree.left.val * tree.right.left.val);
         res.r(simplifyHelper(tree.right.right));
         return res;
     },
-    "###*(###*$$$)": function (tree) {
+    "###*(###*$$$)": function(tree) {
         var res = new Tree("*");
         res.l(tree.left.val * tree.right.left.val);
         res.r(simplifyHelper(tree.right.right));
         return res;
     },
-    "###*($$$*###)": function (tree) {
+    "###*($$$*###)": function(tree) {
         var res = new Tree("*");
         res.l(tree.left.val * tree.right.right.val);
         res.r(simplifyHelper(tree.right.left));
@@ -92,7 +90,7 @@ var schemaFns = {
     "x^1": function(tree) {
         return new Tree("x");
     },
-    "x^0": function (tree) {
+    "x^0": function(tree) {
         return new Tree("1");
     },
     "$$$*1": function(tree) {
@@ -103,7 +101,7 @@ var schemaFns = {
         var numDegree = tree.left.right.right.val,
             denomDegree = tree.right.right.val;
 
-        if(numDegree>denomDegree) {
+        if (numDegree > denomDegree) {
             tree.left.right.right.val -= denomDegree;
             return tree.left;
         } else {
@@ -118,20 +116,21 @@ var schemaFns = {
         var res = new Tree("/"),
             st = new Tree("*");
 
-        st.l(1); st.r(tree.left);
+        st.l(1);
+        st.r(tree.left);
         res.l(st);
         res.r(tree.right);
         return this["($$$*(x^###))/(x^###)"](res);
     },
     "-1*###": function(tree) {
-        return new Tree(-1*tree.right.val);
+        return new Tree(-1 * tree.right.val);
     },
     "$$$-(-1*$$$)": function(tree) {
         tree.val = "+";
         tree.right = tree.right.right;
         return tree;
     },
-    "(cosx)^2+(sinx)^2": function (tree) {
+    "(cosx)^2+(sinx)^2": function(tree) {
         return new Tree(1);
     },
     "###/>>>": function(tree) {
@@ -165,8 +164,8 @@ var trigIdentities = {
 };
 
 function simplifyEquivalent(tree) {
-    for(var f in equivalenceFns) {
-        if(parseInput(f).equals(tree)) {
+    for (var f in equivalenceFns) {
+        if (parseInput(f).equals(tree)) {
             return equivalenceFns[f](tree);
         }
     }
