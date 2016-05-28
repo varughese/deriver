@@ -81,7 +81,7 @@ var schemaFns = {
     "###-###": function(tree) {
         return new Tree(tree.left.val - tree.right.val);
     },
-    "$$$*0": function(tree) {
+    "0*$$$": function(tree) {
         return new Tree(0);
     },
     "$$$/1": function(tree) {
