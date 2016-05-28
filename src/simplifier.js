@@ -5,18 +5,21 @@ function simplifyHelper(t) {
     while(true) {
         var clean = true;
         for(var f in schemaFns) {
-            if(res.equals(parseInput(f))) {
-                res = simplifyHelper(schemaFns[f](res));
-                clean = false;
-            } else if(res.val === '+' || res.val === '*') {
-                if(res.equals(parseInput(f).switch())) {
-                    res.switch();
-                    res = simplifyHelper(schemaFns[f](res));
+            var parsed = parseInput(f);
+            if(res.val === parsed.val) {
+                if(res.equals(parsed)) {
+                    res = schemaFns[f](res);
                     clean = false;
-                } else if(res.equals(parseInput("$$$*###") || res.equals(parseInput("$$$*###")))) {
-                    //TODO perhaps factor this out into own simplifer function 
-                    res.switch();
-                    clean = false;
+                } else if(res.val === '+' || res.val === '*') {
+                    if(res.equals(parsed.switch())) {
+                        res.switch();
+                        res = schemaFns[f](res);
+                        clean = false;
+                    } else if(res.equals(parseInput("$$$*###") || res.equals(parseInput("$$$*###")))) {
+                        //TODO perhaps factor this out into own simplifer function
+                        res.switch();
+                        clean = false;
+                    }
                 }
             }
         }
