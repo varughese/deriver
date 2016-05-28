@@ -2,8 +2,11 @@ function simplifyHelper(t) {
     var tree = t.clone();
     var res = tree;
 
+    if (t.left && t.left.equals(t.right)) {
+        res = simplifyEquivalent(t);
+    }
 
-    if (res.equals(parseInput("$$$*###") || res.equals(parseInput("$$$+###")))) {
+    if (res.equals(parseInput("$$$+###")) || res.equals(parseInput("$$$*###"))) {
         //TODO perhaps factor this out into own simplifer function
         res.switch();
     }
@@ -45,9 +48,7 @@ function simplify(t) {
         if (t.right) {
             t.right = simplify(t.right);
         }
-        if (t.left && t.left.equals(t.right)) {
-            return simplifyEquivalent(t);
-        }
+
         return simplifyHelper(t);
     } else {
         if(simplify(s.clone()).equals(s)) return s;
@@ -134,7 +135,20 @@ var schemaFns = {
         tree.right = tree.right.right;
         return tree;
     },
+    "(###*$$$)+(###*$$$)": function(tree) {
+        if(tree.left.right.equals(tree.right.right)) {
+            var res = new Tree("*");
+            res.l(tree.left.left.val + tree.right.left.val);
+            res.r(tree.left.right);
+            return res;
+        } else {
+            return tree;
+        }
+    },
     "(cosx)^2+(sinx)^2": function(tree) {
+        return new Tree(1);
+    },
+    "(sinx)^2+(cosx)^2": function(tree) {
         return new Tree(1);
     },
     "###/>>>": function(tree) {
