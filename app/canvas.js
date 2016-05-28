@@ -86,4 +86,4 @@ function drawTree(t, x, y) {
     deltaX*=0.26*Math.log(y);
 }
 
-drawTree(derive("4sinx+arcsin(x^3)"))
+drawTree(derive("sinx/cosx"))
