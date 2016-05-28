@@ -3,23 +3,31 @@ function simplifyHelper(t) {
     var res = tree;
 
 
+    if (res.equals(parseInput("$$$*###") || res.equals(parseInput("$$$+###")))) {
+        //TODO perhaps factor this out into own simplifer function
+        res.switch();
+    }
+
     for (var f in schemaFns) {
         var parsed = parseInput(f);
         if (res.val === parsed.val) {
             if (res.equals(parsed)) {
                 res = schemaFns[f](res);
-                break;
-            } else if (res.val === '+' || res.val === '*') {
-                if (res.equals(parsed.switch())) {
-                    res.switch();
-                    res = schemaFns[f](res);
-                    break;
-                } else if (res.equals(parseInput("$$$*###") || res.equals(parseInput("$$$*###")))) {
-                    //TODO perhaps factor this out into own simplifer function
-                    res.switch();
-                    break;
-                }
             }
+
+
+            // else if (res.val === '+' || res.val === '*') {
+            //     //TODO instead of switching make eerything conform to certain rule with formalizer function or something
+            //     if (res.equals(parsed.switch())) {
+            //         res.switch();
+            //         res = schemaFns[f](res);
+            //         break;
+            //     } else if (res.equals(parseInput("$$$*###") || res.equals(parseInput("$$$*###")))) {
+            //         //TODO perhaps factor this out into own simplifer function
+            //         res.switch();
+            //         break;
+            //     }
+            // }
         }
 
     }
@@ -46,7 +54,6 @@ function simplify(t) {
         else return simplify(s);
     }
 }
-
 
 var schemaFns = {
     "###*(###/$$$)": function(tree) {
@@ -93,8 +100,8 @@ var schemaFns = {
     "x^0": function(tree) {
         return new Tree("1");
     },
-    "$$$*1": function(tree) {
-        return tree.left;
+    "1*$$$": function(tree) {
+        return tree.right;
     },
     "($$$*(x^###))/(x^###)": function(tree) {
         //TODO try moving this to the below function ... and then
