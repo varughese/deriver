@@ -13,6 +13,10 @@ function simplifyHelper(t) {
                     res.switch();
                     res = simplifyHelper(schemaFns[f](res));
                     clean = false;
+                } else if(res.equals(parseInput("$$$*###") || res.equals(parseInput("$$$*###")))) {
+                    //TODO perhaps factor this out into own simplifer function 
+                    res.switch();
+                    clean = false;
                 }
             }
         }
@@ -133,6 +137,15 @@ var schemaFns = {
         res.l(tree.left);
         res.r(r);
         res.right.right = tree.right.right;
+        return res;
+    },
+    "###/(>>>^###)": function(tree) {
+        var degree = tree.right.right;
+        var res = new Tree("*");
+        res.l(tree.left);
+        res.r("^");
+        res.right.left = new Tree(trigIdentities.reciprocals[tree.right.left.val]);
+        res.right.right = degree;
         return res;
     }
 };
