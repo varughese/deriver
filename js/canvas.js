@@ -17,11 +17,12 @@ function draw() {
 function drawCircle(x, y, text) {
     ctx.lineWidth=2;
     var saved = ctx.fillStyle;
-    var circle = new Path2D();
-    circle.arc(x, y, 14, 0, 2*Math.PI);
-    ctx.fill(circle);
+    ctx.beginPath();
+    ctx.arc(x, y, 14, 0, 2*Math.PI);
+    ctx.fill();
     ctx.fillStyle = 'black';
-    ctx.stroke(circle);
+    ctx.stroke();
+    ctx.closePath();
     ctx.font="15px Arial";
     ctx.fillStyle = 'white';
     ctx.textBaseline = 'middle';
