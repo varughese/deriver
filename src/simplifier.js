@@ -17,6 +17,8 @@ function simplifyHelper(t) {
             if (res.equals(parsed)) {
                 res = schemaFns[res.val][f](res);
             }
+            //TODO maybe make schemaFns ggroup by right value as well
+            //TODO above todo prolly wont work .. .try figuring out how to make an actual converter between regular tree and a pattern tree
 
 
             // else if (res.val === '+' || res.val === '*') {
