@@ -1,30 +1,56 @@
 $('body').append('<canvas id=\'canvas\' width=\'870\' height=\'800\'></canvas');
 var canvas = $('canvas')[0],
-    ctx = canvas.getContext('2d');
+    ctx = canvas.getContext('2d'),
+    deltaX,
+    deltaY;
+
+var THEME = {
+    bg: 'white',
+    circle: {
+        radius: '14',
+        stroke: 'black',
+        op: 'firebrick',
+        fx: '#8C00C3',
+        x: '#557CD6',
+        num: '#676767'
+    },
+    branches: 'black',
+    font: {
+        color:'white',
+        style: '15px Arial'
+    },
+    deltaX: 120,
+    deltaY: 80
+};
+
+function setTheme(theme) {
+    for(var key in THEME) {
+        if(typeof THEME[key] === 'object')
+            for(var subKey in THEME[key])
+                THEME[key][subKey] = theme[key][subKey] || THEME[key][subKey];
+        else
+            THEME[key] = theme[key] || THEME[key];
+    }
+}
 
 function clear() {
     var saved = ctx.fillStyle;
-    ctx.fillStyle = 'white';
+    ctx.fillStyle = THEME.bg;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = saved;
-}
-
-function draw() {
-    ctx.fillStyle = 'black';
-    ctx.fillRect(0, 0, 400, 400);
 }
 
 function drawCircle(x, y, text) {
     ctx.lineWidth=2;
     var saved = ctx.fillStyle;
     ctx.beginPath();
-    ctx.arc(x, y, 14, 0, 2*Math.PI);
+    ctx.arc(x, y, THEME.circle.radius, 0, 2*Math.PI);
     ctx.fill();
-    ctx.fillStyle = 'black';
+    ctx.strokeStyle = THEME.circle.stroke;
     ctx.stroke();
     ctx.closePath();
-    ctx.font="15px Arial";
-    ctx.fillStyle = 'white';
+    ctx.font= THEME.font.style;
+    ctx.fillStyle = THEME.font.color;
     ctx.textBaseline = 'middle';
     ctx.textAlign = "center";
     ctx.fillText(text, x, y);
@@ -32,16 +58,17 @@ function drawCircle(x, y, text) {
 }
 
 function pickColor(val) {
-    if(Object.keys(TreePattern.__OPS).indexOf(val) > -1) ctx.fillStyle = 'firebrick';
-    else if(Object.keys(TreePattern.__FUNCTIONS).indexOf(val) > -1) ctx.fillStyle = '#8C00C3';
-    else if(val === 'x') ctx.fillStyle = '#557CD6';
-    else ctx.fillStyle = '#676767';
+    if(Object.keys(TreePattern.__OPS).indexOf(val) > -1) ctx.fillStyle = THEME.circle.op;
+    else if(Object.keys(TreePattern.__FUNCTIONS).indexOf(val) > -1) ctx.fillStyle = THEME.circle.fx;
+    else if(val === 'x') ctx.fillStyle = THEME.circle.x;
+    else ctx.fillStyle = THEME.circle.num;
 }
 
 function drawConnector(x, y, dir) {
     if(dir === 'left' || dir <= 0) dir = -1;
     else dir = 1;
     ctx.beginPath();
+    ctx.strokeStyle = THEME.branches;
     // ctx.fillStyle = 'black';
     // ctx.beginPath();
     // var change = dir * 20/Math.sqrt(2);
@@ -62,15 +89,14 @@ function drawConnector(x, y, dir) {
     ctx.closePath();
 }
 
-var deltaX = 120;
-var deltaY = 80;
+
 
 function drawTree(t, x, y) {
     if(!x || !y) {
         x = canvas.width/2;
         y = 25;
-        deltaX = 120;
-        deltaY = 80;
+        deltaX = THEME.deltaX;
+        deltaY = THEME.deltaY;
         clear();
     }
     deltaX/=0.26*Math.log(y);
@@ -87,4 +113,4 @@ function drawTree(t, x, y) {
     deltaX*=0.26*Math.log(y);
 }
 
-drawTree(derive("4sinx+arcsin(x^3)"))
+drawTree(derive("4sinx+arcsin(x^3)"));
