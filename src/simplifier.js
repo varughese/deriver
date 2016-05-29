@@ -1,8 +1,7 @@
 function simplifyHelper(t) {
     var tree = t.clone();
     var res = tree;
-    console.log(res+"");
-
+    
     if (t.left && t.left.equals(t.right)) {
         res = simplifyEquivalent(t);
     }

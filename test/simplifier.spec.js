@@ -1,7 +1,7 @@
 var DEBUGGIN = false;
 var GOBACK = 5;
 
-xdescribe("Simplifier::", function() {
+fdescribe("Simplifier::", function() {
     var data = DEBUGGIN ? __simplifytestdata.slice(-GOBACK) : __simplifytestdata;
 
     it("Should Simplify", function() {
