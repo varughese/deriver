@@ -25,7 +25,7 @@ var THEME = {
 
 function setTheme(theme) {
     for(var key in THEME) {
-        if(typeof THEME[key] === 'object')
+        if(theme[key] && typeof THEME[key] === 'object')
             for(var subKey in THEME[key])
                 THEME[key][subKey] = theme[key][subKey] || THEME[key][subKey];
         else
