@@ -2,8 +2,6 @@
 
 [![Build Status](https://travis-ci.org/jasonawalker/deriver.svg?branch=master)](https://travis-ci.org/jasonawalker/deriver)
 
-A project that attempts to implement the idea of a derivative (Calculus) in javascript. User input is parsed and the derivitave is given.
-
 # How it Works
 ![alt text](http://i.imgur.com/fgDaruC.png?1)
 
