@@ -16,7 +16,8 @@ var rules = {
     "&&&": "OP",
     ">>>": "TRIG",
     '@@@': "MARKER",
-    ',,,': "LOG"
+    ',,,': "LOG",
+    "|||": "FRAC"
 };
 for(var p in rules) {
     TreePattern[rules[p]] = new treePatternRule(p);
@@ -74,7 +75,8 @@ TreePattern.fns = {
     "&&&": function(val) { return val && "+-/*^".indexOf(val) > -1; },
     ">>>": function(val) { return val && "sin|cos|tan|csc|sec|cot|arcsin|arccos|arctan|arccsc|arcsec|arccot".indexOf(val) > -1 ; },
     "@@@": function(val) { return val === '@@@'; },
-    ",,,": function(val) { return val && "ln|log".indexOf(val) > -1; }
+    ",,,": function(val) { return val && "ln|log".indexOf(val) > -1; },
+    "|||": function(val) { return val instanceof Tree && val.val === '/' && isNaN(val.left) && isNaN(val.right); }
 };
 
 

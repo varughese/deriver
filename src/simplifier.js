@@ -64,6 +64,10 @@ var schemaFns = {
         res.r(simplifyHelper(tree.right.right));
         return res;
     },
+    "(1/$$$)*($$$)": function(tree) {
+        tree.left.left = tree.right;
+        return tree.left;
+    },
     "###*(###*$$$)": function(tree) {
         var res = new Tree("*");
         res.l(tree.left.val * tree.right.left.val);
@@ -101,6 +105,14 @@ var schemaFns = {
     },
     "x^0": function(tree) {
         return new Tree("1");
+    },
+    "($$$)^(1/2)": function(tree) {
+        var res = new Tree("sqrt");
+        res.right = tree.left;
+        return res;
+    },
+    "(sqrt($$$))^2": function(tree) {
+        return tree.left.right;
     },
     "1*$$$": function(tree) {
         return tree.right;
