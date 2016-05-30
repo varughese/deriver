@@ -1,7 +1,45 @@
 # Tree
 The Tree class is fundamental to the project. It's methods allow for easy manipulation.
 
-### getDir()
+### constructor: *new Tree(val)*
+#### Description
+If the val passed in is a number inside a string, it is automatically converted to a `Number`. The left and right properties of a `Tree` are false by default. This means that if you are recursively searching a Tree, once the left or right value is false, you know you have reached the end of that particular node.
+
+Each value is contained on the `val` property. The `left` and `right` values are `Tree` objects. For example, lets make the tree for 2+4
+```javascript
+var tree = new Tree('+');
+tree.val // '+'
+
+tree.left // false
+
+// WRONG!
+tree.left = 2 // this assigns an integer to the left branch of this Tree. However, it must be another Tree!
+
+// RIGHT
+tree.left = new Tree(2);
+
+tree.right = new Tree(4);
+```
+
+So `tree` will essentially equal this object:
+```javascript
+tree = {
+  val: '+'
+  left: {
+    val: 2,
+    left: false,
+    right: false
+  },
+  right: {
+    val: 4,
+    left: false,
+    right: false
+  }
+}
+```
+As you can see, for something as simple as 2+2, the structure can get complex! This is why the following methods are provided, to make creation of Trees a little easier to manipulate and debug. (Check out the cool (toString)[#tostring] method). A lot of recursion is used, because well, these Trees are inherently recursive. 
+
+### getDir(dir)
 #### Description
 This method is used to convert dir into 'left' or 'right'. It allows for other functions to pass in positive numbers or negative numbers to indicate right or left.
 #### Params
@@ -17,7 +55,7 @@ getDir('left') // left
 ```
 
 
-### add()
+### add(dir, val)
 #### Description
 This method is used to convert dir into 'left' or 'right'. It allows for other functions to pass in positive numbers or negative numbers to indicate right or left.
 #### Params
@@ -79,7 +117,7 @@ tree.right = new Tree(4);
 ```
 It is all just syntatical sugar for manipulating the left and right values of the trees!
 
-### r()
+### r(v)
 #### Description
 Shortcut for add('right', val)
 #### Params
@@ -99,7 +137,7 @@ tree.r(4);
 ```
 
 
-### l()
+### l(v)
 #### Description
 Shortcut for add('left', val)
 #### Params
@@ -119,7 +157,7 @@ tree.add('right', 4);
 ```
 
 
-### equals()
+### equals(tree)
 #### Description
 Recursively checks if two trees are equal. Uses TreePattern.eq to check equality, so this method is compatible with TreePattern trees.
 #### Params
@@ -208,7 +246,7 @@ A.switch()
 ```
 
 
-### contains()
+### contains(target)
 #### Description
 Recursively checks if a target value is within a tree. Uses TreePattern.eq to check, so it is compatible with TreePattern rules.
 #### Params
@@ -227,7 +265,7 @@ A.contains('sin') //false
 ```
 
 
-### replace()
+### replace(target, replace)
 #### Description
 Recursively replaces a target value with a replace value everywhere in the tree.
 #### Params
