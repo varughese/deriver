@@ -96,6 +96,7 @@ Tree.prototype.replace = function(target, replace) {
     }
     if(this.left) this.left.replace(target, replace);
     if(this.right) this.right.replace(target, replace);
+    return this;
 };
 
 Tree.prototype.toString = function(num) {
