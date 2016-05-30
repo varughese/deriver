@@ -33,8 +33,8 @@ cleanInput("sinxcosx") // sin(x)*cos(x)
 ## parseInput(val)
 The meat and potatoes. In short, all this really does is recursively make a `Tree`. It makes the val of the tree equal to the operator with the highest precedence (so backwards PEMDAS order), and the left side of the tree is everything to the left of the operator parsed and same with the right. It will make more sense as we go on. I suggest reading through this real quick with the code next to it, and then go through an example and then reread. It is actually pretty simple once you look at an example.
 
-### Base Case
-If val is an empty string, we return to break out of the string. All recursive methods have a base case, and this is it for parseInput.
+### Base Case \#1
+If val is an empty string, we return to break out of the string.
 
 ### Dealing with Parentheses
 The code from the declaration of `parens` to the declaration of `foundOps`
@@ -62,4 +62,5 @@ So `foundOps` has all the locations of the operators in `val`. We want the top n
 ### Recursion Bro!
 So we have a position, and the token. Now, we just make a new `Tree` with that token, and then set the left of the tree to be the `Tree` returned from parsing the left of the operator, and the right side to be from parsing the string from the right of the operator.
 
-If `pos` is undefined though, that means that no operators were found. This means we have found the end of `Tree`. If val is a `TreePattern` rule, we set it to one. Otherwise, we make a number, replacing those `~`s back to negative signs so it can be evalutated as a negative number. 
+### Base Case \#2
+If `pos` is undefined though, that means that no operators were found. This means we have found the end of `Tree`. If val is a `TreePattern` rule, we set it to one. Otherwise, we make a number, replacing those `~`s back to negative signs so it can be evalutated as a negative number.
