@@ -37,7 +37,7 @@ tree = {
   }
 }
 ```
-As you can see, for something as simple as 2+2, the structure can get complex! This is why the following methods are provided, to make creation of Trees a little easier to manipulate and debug. (Check out the cool (toString)[#tostring] method). A lot of recursion is used, because well, these Trees are inherently recursive. 
+As you can see, for something as simple as 2+2, the structure can get complex! This is why the following methods are provided, to make creation of Trees a little easier to manipulate and debug. (Check out the cool [toString](#tostring) method). A lot of recursion is used, because well, these Trees are inherently recursive. 
 
 ### getDir(dir)
 #### Description
