@@ -1,4 +1,6 @@
 $('body').append('<canvas id=\'canvas\' width=\'870\' height=\'800\'></canvas');
+$('body').append('<div class=\'theme-picker col-sm-5\'></div>');
+
 var canvas = $('canvas')[0],
     ctx = canvas.getContext('2d'),
     deltaX,
@@ -22,6 +24,29 @@ var THEME = {
     deltaX: 120,
     deltaY: 80
 };
+
+for(var key in THEME) {
+    if(typeof THEME[key] === 'object'){
+        $('.theme-picker').append('<div class=\'sub-theme-picker form-group\'><h4>'+key+'</h4></div>');
+        for(var subKey in THEME[key])
+            $(".sub-theme-picker").last().append("<label>"+subKey+"<div class=\"form-group\"></label><input class=\"form-control\" id=\"" + key +" "+ subKey + "\" /></div>");
+    }
+    $(".theme-picker").append("<div class=\"form-group\"><label>"+key+"</label><input class=\"form-control\" id=\"" + key + "\" /></div>");
+}
+$(".theme-picker").change(function(e) {
+    var ids = $(e.target).attr('id');
+    var vjawn = $(e.target).val();
+    var j = ids.split(" ");
+    var theme = {};
+    if(j.length>1) {
+        theme[j[0]] = {};
+        theme[j[0]][j[1]] = vjawn;
+    } else {
+        theme[j] = vjawn;
+    }
+    setTheme(theme);
+    drawTree((val || derive("4sinx+arcsin(x^3)")));
+});
 
 function setTheme(theme) {
     for(var key in THEME) {
