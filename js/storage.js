@@ -1,9 +1,10 @@
+
 var Storage = {};
 
 Storage.get = function() {
     var arr = [];
-    for(var x in sessionStorage) {
-        arr.push(sessionStorage.getItem(x));
+    for(var i=0; i<3; i++) {
+        arr.push(sessionStorage.getItem(sessionStorage.key(sessionStorage.length-1-i)));
     }
     return arr;
 };
