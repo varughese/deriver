@@ -12,16 +12,6 @@ Tree.prototype.getDir = function(dir) {
     return dir;
 };
 
-
-Tree.prototype.get = function(dir, n) {
-    dir = this.getDir(dir);
-    var current = this;
-    for (var i = 1; i < n; i++) {
-        current = current[dir];
-    }
-    return current;
-};
-
 Tree.prototype.add = function(dir, val) {
     if(val !== 0 && !val) return;
 
