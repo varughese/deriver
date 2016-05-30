@@ -22,7 +22,7 @@ Different treePatternRule objects can be found as properties on the `TreePattern
 ..[###]
 */
 ```
-Pattern A follows the pattern of a (Number plus a Number) times a Number. More succinctly written as (###+###)\*(###). Tree A matches this pattern. Does `(2+x)*9` match Pattern A? No. TreePattern rules are ways that allow this idea of a pattern to be implemented in this project. The rules are self-explanatory and easily extensible.
+`Pattern A` follows the pattern of a (Number plus a Number) times a Number. More succinctly written as `(###+###)*(###)`. Tree A matches this pattern. Does `(2+x)*9` match `Pattern A`? No. `TreePattern` rules are ways that allow this idea of a pattern to be implemented in this project. The rules are self-explanatory and easily extensible.
 
 #### $$$ : TreePattern.ANY
 Any value at all!
