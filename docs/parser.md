@@ -18,7 +18,7 @@ parseParens('1+((2+3)*(4+5))') // [[2,14], [3, 7], [9,13]]
 So it returns an array, and each element in the array is an array the gives the range of the parentheses.
 
 ### cleanInput(val)
-This function may be more complex than the parseInput method actually. In addition to inserting multiplication symbols, it also adds parentheses to functions like sine and cosine.
+This function may be more complex than the parseInput method actually. In addition to inserting multiplication symbols, it also adds parentheses to functions like sine and cosine. This is where all those `__string` helper methods come in handy.
 #### Example
 ```javascript
 cleanInput('2x') // 2*x
@@ -64,3 +64,50 @@ So we have a position, and the token. Now, we just make a new `Tree` with that t
 
 ### Base Case \#2
 If `pos` is undefined though, that means that no operators were found. This means we have found the end of `Tree`. If val is a `TreePattern` rule, we set it to one. Otherwise, we make a number, replacing those `~`s back to negative signs so it can be evalutated as a negative number.
+
+
+## Example
+
+| 3 | * | x | ^ | 5 | + | 4 | * | x |
+|---|---|---|---|---|---|---|---|---|
+| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |
+
+```javascript
+var foundOps = {
+  '*': 1,
+  '+': 5,
+  '^': 3
+}
+```
+By going through the string in reverse order, the operator that is saved is always the left most one. In this example, it is `'*': 1` rather than `'*': 7`.
+
+We have a nested for loop that loops through `TreePattern.OPS`  (which has all the operators in order) and `foundOps` . Here is a short segment of `TreePattern.OPS`.
+```javascript
+TreePattern.OPS = {
+    '+': 1,
+    '-': 1,
+    '*': 2,
+    '/': 2,
+    '^': 3,
+    'arcsin': 4,
+    ... // etc
+}
+```
+If a value in `TreePattern.OPS` is within `foundOps`, we set `pos` and `token` and break out of the `for` loop.
+
+In this example, `pos=5`,because that is where the `+` was, and `token='+'`. 
+
+We create a new Tree with `token` as the value, and then set the left side of tree to `parseInput('3*x^5')` and the right to `parseInput('4*x')`. Since `parseInput` will either return a `Tree` or `false`, this will correctly create a Tree.
+
+Here is the order of what will be called.
+```javascript
+parseInput("3*x^5+3*x")
+/**/parseInput("3*x^5")
+/****/parseInput("3")
+/****/parseInput("x^5")
+/******/parseInput("5")
+/**/parseInput("3*x")
+/****/parseInput("3")
+/******/parseInput("x")
+```
+When `parseInput("3")` is called, it is essentially returning `new Tree("3")`. If we loop through all the `TreePattern.OPS` and there are no matches in `foundOps`, then `pos` stays undefined. Then we just return `new Tree(val)`.
