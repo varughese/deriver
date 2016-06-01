@@ -1,4 +1,4 @@
-![alt text](http://i.imgur.com/Vn9S8AI.png?1 "Deriver")
+![alt text](http://i.imgur.com/3BcEYvK.png "Deriver")
 
 [![Build Status](https://travis-ci.org/jasonawalker/deriver.svg?branch=master)](https://travis-ci.org/jasonawalker/deriver)
 
