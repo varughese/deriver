@@ -23,6 +23,8 @@ module.exports = function(config) {
 
     // list of files to exclude
     exclude: [
+        'src/_intro.js',
+        'src/_outro.js',
     ],
 
 
