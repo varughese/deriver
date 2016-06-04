@@ -3,9 +3,10 @@
 [![Build Status](https://travis-ci.org/jasonawalker/deriver.svg?branch=master)](https://travis-ci.org/jasonawalker/deriver)
 
 # How to Use
-Get the deriver.js file from `dist` folder to get the latest version.
+Grab the deriver.js file from `dist` folder to get the latest version.
 ``` javascript
-Deriver.derive("3x^2+3"); // 6x
+Deriver.derive("3x^2+3")  // 6x
+Deriver.derive("tan2x+sinx") // 2sec(2x)^2+cosx
 ```
 
 # How it Works
