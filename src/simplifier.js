@@ -41,6 +41,7 @@ function simplifyHelper(t) {
 }
 
 function simplify(t) {
+    if(!(t instanceof Tree)) t = parseInput(t);
     if (!t.left && !t.right) return t;
     var s = simplifyHelper(t);
     if (s.equals(t)) {

@@ -2,10 +2,16 @@
 
 [![Build Status](https://travis-ci.org/jasonawalker/deriver.svg?branch=master)](https://travis-ci.org/jasonawalker/deriver)
 
+# How to Use
+Get the deriver.js file from `dist` folder to get the latest version.
+``` javascript
+Deriver.derive("3x^2+3"); // 6x
+```
+
 # How it Works
 ![alt text](http://i.imgur.com/fgDaruC.png?1)
 
-An input is given as a string. This string is "cleaned", which inserts multiplication symbols where neccesary. For example, 2\*x is usually written by 2x. And sin(2\*x) is usually written as sin(2x). The cleaned input is parsed into a Tree. The root of a tree is a value. The root of the parsed tree in this example is a '+' operator. The left and right branches of a tree are also Trees. Computers are much better at understanding trees than understanding strings. This makes manipulation a lot easier. This tree is then derived. All of the derivative rules are programmed in, and the derive method follows them. The result is a tree, which is then simplified and then unparsed from a tree back to a string! 
+An input is given as a string. This string is "cleaned", which inserts multiplication symbols where neccesary. For example, 2\*x is usually written by 2x. And sin(2\*x) is usually written as sin(2x). The cleaned input is parsed into a Tree. The root of a tree is a value. The root of the parsed tree in this example is a '+' operator. The left and right branches of a tree are also Trees. Computers are much better at understanding trees than understanding strings. This makes manipulation a lot easier. This tree is then derived. All of the derivative rules are programmed in, and the derive method follows them. The result is a tree, which is then simplified and then unparsed from a tree back to a string!
 
 To view the individual functions
 - [cleanInput](https://github.com/jasonawalker/deriver/blob/master/src/parser.js#L28)
