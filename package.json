@@ -1,8 +1,8 @@
 {
   "name": "deriver",
   "version": "1.0.0",
-  "description": "A project that attempts to implement the idea of a Calculus derivitave in javascript, by parsing user input into trees",
-  "main": "script.js",
+  "description": "Finds the Calculus derivative by parsing user input into Trees",
+  "main": "dist/deriver.js",
   "dependencies": {},
   "devDependencies": {
     "bower": "^1.7.9",
@@ -18,10 +18,10 @@
     "phantomjs-prebuilt": "^2.1.7"
   },
   "scripts": {
-    "build": "npm install && bower install && npm run open",
+    "build": "npm install && bower install && npm run grunt",
     "grunt": "grunt default",
     "test": "karma start  --single-run",
-    "open": "start chrome __dirname+./app/index.html"
+    "open": "start chrome __dirname+/app/index.html"
   },
   "repository": {
     "type": "git",
