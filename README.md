@@ -38,11 +38,5 @@ I recommend reading through the docs in this order though:
 - Best way to do all the string manipulation (which was actually to do no string manipulation)
 - How to handle omission of multiplication signs
 
-## About Us
-Just some random high schoolers that are interested in computer science and JavaScript. We tried documenting this project thoroughly to allow other learners like us to experience the same fascinating in solving the issue of parsing expressions.
-
-If any questions or comments, please contact us!
-
-<mat.varughese3@gmail.com>
-
-<j26walker@gmail.com>
+## About
+I tried documenting this project thoroughly to allow others interested in CS to experience the same fascination in solving the issue of parsing expressions.
