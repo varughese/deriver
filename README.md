@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/jasonawalker/deriver.svg?branch=master)](https://travis-ci.org/jasonawalker/deriver)
 
 # Link to View
-A Github-Pages link was made to show this off (it includes cool visuals as well). Check out the `gh-pages` branch, or click this [link](https://jasonawalker.github.io/deriver/)
+A Github-Pages link was made to show this off (it includes cool visuals as well). Check out the `gh-pages` branch, or **click this [link](http://varughese.github.io/deriver/)**
 
 # How to Use
 Grab the deriver.js file from `dist` folder to get the latest version.
