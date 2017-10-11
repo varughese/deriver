@@ -6,4 +6,4 @@
 GitHub Pages website that shows off the Deriver
 
 # Link
-[Link](https://jasonawalker.github.io/deriver/)
+[Link](https://varughese.github.io/deriver/)
