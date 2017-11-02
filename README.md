@@ -1,6 +1,6 @@
 ![alt text](http://i.imgur.com/3BcEYvK.png "Deriver")
 
-[![Build Status](https://travis-ci.org/jasonawalker/deriver.svg?branch=master)](https://travis-ci.org/jasonawalker/deriver)
+[![Build Status](https://travis-ci.org/varughese/deriver.svg?branch=master)](https://travis-ci.org/varughese/deriver)
 
 # Link to View
 A Github-Pages link was made to show this off (it includes cool visuals as well). Check out the `gh-pages` branch, or **click this [link](http://varughese.github.io/deriver/)**
