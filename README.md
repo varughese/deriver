@@ -5,9 +5,6 @@
 # Disclaimer
 This is a project I made in 11th grade, before I knew anything about data structures. After taking a Data Structures class, I realized that`Trees` and `Stacks` are actual things and that this idea of converting mathematical expressions into trees is not a new idea haha. Still was a cool project at the time.
 
-Update: After learning about Systems Software, I realized this project is somewhat similar in concept to a compiler. 
-
-
 # Deriver
 ## Link to View
 A Github-Pages link was made to show this off (it includes cool visuals as well). Check out the `gh-pages` branch, or **click this [link](http://varughese.github.io/deriver/)**
