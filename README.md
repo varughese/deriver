@@ -3,7 +3,9 @@
 [![Build Status](https://travis-ci.org/varughese/deriver.svg?branch=master)](https://travis-ci.org/varughese/deriver)
 
 # Disclaimer
-This is a project I made in 11th grade, before I knew anything about data structures. After taking a Data Structures class, I realized that`Trees` and `Stacks` are actual things and that this idea of converting mathematical expressions into trees is not a new idea haha. Still was a cool project at the time.
+This is a project I made in 11th grade, before I knew anything about data structures. After taking a Data Structures class, I realized that`Trees` and `Stacks` are actual things and that this idea of converting mathematical expressions into trees is not a new idea lol. Still was a cool project at the time.
+
+Edit: After taking Intro to Systems Software and learning more about compilers, I thought of this project and realized in a way it is sort of a compiler.
 
 # Deriver
 ## Link to View
